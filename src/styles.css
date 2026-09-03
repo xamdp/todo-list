@@ -1,0 +1,35 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+	height: 100vh;
+}
+
+.heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.content-wrapper {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	overflow: hidden;
+}
+
+.sidebar {
+	border-right: 1px solid black;
+	flex-shrink: 0;
+	width: 256px;
+	padding: 1.5rem;
+}
