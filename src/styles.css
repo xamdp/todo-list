@@ -5,6 +5,13 @@ body {
 	height: 100%;
 }
 
+:root {
+	--text: #231F20;
+	--primary-bg: #FFFFFF;
+	--accent-color: #C3392C;
+	--secondary-bg: #FCFAF8;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -12,19 +19,23 @@ body {
 .container {
 	display: flex;
 	height: 100vh;
+	font-family: "Quicksand", sans-serif;
 }
 
 .heading {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 1rem;
 }
 
 .content-wrapper {
+	padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 	overflow: hidden;
+	gap: 2rem;
 }
 
 .sidebar {
@@ -32,4 +43,27 @@ body {
 	flex-shrink: 0;
 	width: 256px;
 	padding: 1.5rem;
+}
+
+.main-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.todos-container {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.add-todo-btn {
+	display: block;
+	margin: 0 auto;
+	padding: 8px 16px;
+	background-color: var(--accent-color);
+	color: var(--primary-bg);
+	font-weight: 500;
+	font-size: 14px;
+	border: none;
+	border-radius: 10px;
 }
