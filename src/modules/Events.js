@@ -1,41 +1,32 @@
-
-import { createTodo } from './factories/todoFactory.js'
-import { addTodo, getTodos } from "./Todo.js";
-import { createTodoForm, render } from "./DOM.js";
+import { createTodo } from "./factories/todoFactory.js";
+import { addTodo } from "./Todo.js";
+import { render } from "./DOM.js";
 
 function handleAddTodoBtnClick() {
-	const form = createTodoForm();
-	render(document.querySelector('.todos-container'), form)
-	handleOpenFormClick();
+	const modal = document.getElementById("todo-modal");
+	console.log(modal);
+	modal.style.display = "block";
 }
 
-function handleOpenFormClick() {
-	const modal = document.getElementById("todo-modal")
-	modal.showModal();
-}
-
-function handleCloseFormClick() {
-	const modal = document.querySelector("#todo-modal")
-	modal.close();
+function closeTodoModal() {
+	// it seems i do not need to auto close the modal, ill just add a cancel button
+	const modal = document.getElementById("todo-modal");
+	modal.style.display = "none";
 }
 
 export function initListeners() {
-	document.querySelector(".add-todo-btn").addEventListener('click', handleAddTodoBtnClick)
-
-	//open modal,
-	// document.querySelector(".add-todo-btn").addEventListener('click', handleOpenFormClick)
+	document
+		.querySelector(".add-todo-btn")
+		.addEventListener("click", handleAddTodoBtnClick);
 
 	// close modal
-	// document.querySelector(".close-btn").addEventListener('click', handleCloseFormClick)
-
+	document
+		.querySelector("#cancelBtn")
+		.addEventListener("click", closeTodoModal);
 }
 
-
 function handleAddTodoClick() {
-	const newTodo = createTodo(userInput)
+	const newTodo = createTodo(userInput);
 	addTodo(newTodo);
 	render();
 }
-
-
-

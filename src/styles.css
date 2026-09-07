@@ -50,11 +50,42 @@ body {
 	flex-direction: column;
 }
 
+/* .todos-container { */
+/* 	display: flex; */
+/* 	flex-direction: column; */
+/* } */
+
+/* dialog { */
+/* 	max-width: 90%; */
+/* 	max-height: 80vh; */
+/* 	width: 500px; */
+/* 	padding: 2rem; */
+/* 	border-radius: 8px; */
+/* 	border: 1px solid #ccc; */
+/* } */
+
+/* diaglog relative to .todos-container */
 .todos-container {
-	display: flex;
-	flex-direction: column;
+	position: relative;
 }
 
+dialog {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	max-width: 800px;
+	padding: 2rem;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+}
+
+dialog::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+	/*semi-transparent black*/
+}
 
 .add-todo-btn {
 	display: block;
@@ -63,7 +94,72 @@ body {
 	background-color: var(--accent-color);
 	color: var(--primary-bg);
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 1rem;
 	border: none;
 	border-radius: 10px;
+}
+
+.todo-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-btns {
+	display: flex;
+	gap: 1rem;
+}
+
+.todo-title {
+	width: 100%;
+}
+
+.todo-title input {
+	font-size: 2rem;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 100%;
+}
+
+.fields-container {
+	display: flex;
+	justify-content: flex-start;
+	gap: 5px;
+}
+
+.todo-desc,
+.todo-duedate,
+.todo-priority {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	display: flex;
+	gap: 5px;
+	justify-content: center;
+	text-align: center;
+	padding: 3px 4px;
+}
+
+.todo-desc p,
+.todo-duedate p,
+.todo-priority p {
+	margin: 0;
+	align-self: center;
+}
+
+
+.desc-icon,
+.duedate-icon,
+.priority-icon {
+	display: block;
+	align-self: center;
+}
+
+
+.desc-icon,
+.duedate-icon,
+.priority-icon {
+	width: auto;
+	height: 20px;
 }
