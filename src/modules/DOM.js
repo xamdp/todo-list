@@ -64,6 +64,7 @@ export function createTodoForm() {
 	const title = document.createElement("div");
 	title.className = "todo-title";
 	const titleInput = document.createElement("input");
+	titleInput.id = "title-input";
 	titleInput.placeholder = "Finish the Todo User Interface";
 	title.append(titleInput);
 
@@ -75,7 +76,7 @@ export function createTodoForm() {
 	const fieldsContainer = document.createElement("div");
 	fieldsContainer.className = "fields-container";
 
-	// i need to create new div for fields
+	// i need to make a new listener that will create the desc input when the description btn is clicked
 	const description = document.createElement("button");
 	description.type = "button";
 	description.className = "todo-desc";
@@ -97,6 +98,7 @@ export function createTodoForm() {
 	dueDateIcon.querySelector("svg").classList.add("duedate-icon");
 	dueDate.append(dueDateIcon, dueDateText);
 
+	// in priority, i need to create a dropdown selection up to 4 priority levels
 	const priority = document.createElement("button");
 	priority.type = "button";
 	priority.className = "todo-priority";
@@ -123,6 +125,7 @@ export function createTodoForm() {
 	cancelBtn.innerHTML = CancelIcon;
 	cancelBtn.querySelector("svg").classList.add("cancel-icon");
 
+	// add/submit btn, different from the other addTodoBtn
 	const addBtn = document.createElement("button");
 	addBtn.id = "addBtn";
 	addBtn.className = "add-btn";
@@ -134,6 +137,13 @@ export function createTodoForm() {
 	outerContainer.append(formBtns);
 
 	return dialog;
+}
+
+export function createDescriptionInput() {
+	const descInput = document.createElement("input");
+	descInput.id = "desc-input";
+	descInput.placeholder = "Description of my todo";
+	document.querySelector(".todo-title").append(descInput);
 }
 
 // this is to render the created todo from the todo modal

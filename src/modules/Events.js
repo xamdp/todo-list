@@ -1,6 +1,6 @@
 import { createTodo } from "./factories/todoFactory.js";
 import { addTodo } from "./Todo.js";
-import { render } from "./DOM.js";
+import { createDescriptionInput, render } from "./DOM.js";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
@@ -12,20 +12,38 @@ function handleAddTodoBtnClick() {
 }
 
 function closeTodoModal() {
-	// it seems i do not need to auto close the modal, ill just add a cancel button
+	// closes the modal but then addTodoBtn is showed again and description input is reset
 	const modal = document.getElementById("todo-modal");
 	modal.style.display = "none";
 
 	const addBtn = document.querySelector("#addTodoBtn");
 	addBtn.classList.remove("hidden");
 	addBtn.classList.toggle("active");
+
+	// this is ugly, but works
+	const descInput = document.querySelector("#desc-input");
+	if (descInput === null) {
+		return;
+	}
+	descInput.remove();
 }
 
 // this should handle the submitted todo from
 function handleAddTodo() {
-	const newTodo = createTodo(userInput);
+	const userInput = {
+		title: document.querySelector("#title-input").value,
+		desc: document.querySelector("#desc-input").value,
+		dueDate: document.querySelector("#duedate-input").value, // i need to change this
+		priority: document.querySelector("#priority-input").value, // this too
+	};
+	const newTodo = createTodo(userInput); // whats the difference of createTodo and addTodo
 	addTodo(newTodo);
-	render();
+	render(); // idk yet, where this will be used
+}
+
+function descriptionBtnToggle() {
+	if (document.querySelector("#desc-input")) return;
+	createDescriptionInput();
 }
 
 export function initListeners() {
@@ -33,10 +51,15 @@ export function initListeners() {
 		.querySelector(".add-todo-btn")
 		.addEventListener("click", handleAddTodoBtnClick);
 
-	// close modal
 	document
 		.querySelector("#cancelBtn")
 		.addEventListener("click", closeTodoModal);
 
-	document.querySelector("#addBtn");
+	document
+		.querySelector("#addBtn")
+		.addEventListener("submit", handleAddTodo, false);
+
+	document
+		.querySelector(".todo-desc")
+		.addEventListener("click", descriptionBtnToggle);
 }
