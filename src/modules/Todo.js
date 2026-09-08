@@ -8,5 +8,4 @@ function getTodos() { }
 
 function getProjects() { }
 
-
 export { addTodo, deleteTodo, getTodos, getProjects };
