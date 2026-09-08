@@ -1,6 +1,8 @@
 import DescriptionIcon from "../asset/icons/description.svg";
 import DateIcon from "../asset/icons/date.svg";
 import PriorityIcon from "../asset/icons/priority.svg";
+import CancelIcon from "../asset/icons/cancel.svg";
+import ArrowUpIcon from "../asset/icons/arrow-up.svg";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -43,6 +45,7 @@ function addTodoCard() {
 	cardDiv.className = "card-div";
 
 	const addNewTodoBtn = document.createElement("button");
+	addNewTodoBtn.id = "addTodoBtn";
 	addNewTodoBtn.className = "add-todo-btn";
 	addNewTodoBtn.textContent = "+  Add Todo";
 	cardDiv.append(addNewTodoBtn);
@@ -53,6 +56,8 @@ function addTodoCard() {
 export function createTodoForm() {
 	const dialog = document.createElement("dialog");
 	dialog.id = "todo-modal";
+	// at initial page load, modal form is not visible
+	dialog.style.display = "none";
 	const todoForm = document.createElement("form");
 	todoForm.className = "todo-form";
 
@@ -62,11 +67,15 @@ export function createTodoForm() {
 	titleInput.placeholder = "Finish the Todo User Interface";
 	title.append(titleInput);
 
+	// this is where I also append the formBtns
+	const outerContainer = document.createElement("div");
+	outerContainer.className = "outer-container";
+
 	// trying to group fields, except the title
 	const fieldsContainer = document.createElement("div");
 	fieldsContainer.className = "fields-container";
 
-	// need to make fields as button, instead of div
+	// i need to create new div for fields
 	const description = document.createElement("button");
 	description.type = "button";
 	description.className = "todo-desc";
@@ -78,7 +87,6 @@ export function createTodoForm() {
 	description.append(descriptionIcon, descriptionText);
 
 	// as for dueDate i need to use a library called date-fns
-	// for now ill just leave it to a normal input
 	const dueDate = document.createElement("button");
 	dueDate.type = "button";
 	dueDate.className = "todo-duedate";
@@ -100,24 +108,30 @@ export function createTodoForm() {
 	priority.append(priorityIcon, priorityText);
 
 	fieldsContainer.append(description, dueDate, priority);
-
-	todoForm.append(title, fieldsContainer);
+	outerContainer.append(fieldsContainer);
+	todoForm.append(title, outerContainer);
 	dialog.append(todoForm);
 
+	// must append this formBtns to the fields container
 	const formBtns = document.createElement("div");
 	formBtns.className = "form-btns";
 
 	const cancelBtn = document.createElement("button");
 	cancelBtn.id = "cancelBtn";
 	cancelBtn.className = "cancel-btn";
-	cancelBtn.textContent = "Cancel";
+	cancelBtn.type = "button";
+	cancelBtn.innerHTML = CancelIcon;
+	cancelBtn.querySelector("svg").classList.add("cancel-icon");
 
 	const addBtn = document.createElement("button");
 	addBtn.id = "addBtn";
 	addBtn.className = "add-btn";
-	addBtn.textContent = "Add Todo";
+	addBtn.type = "button";
+	addBtn.innerHTML = ArrowUpIcon;
+	addBtn.querySelector("svg").classList.add("arrow-up-icon");
+
 	formBtns.append(cancelBtn, addBtn);
-	dialog.append(formBtns);
+	outerContainer.append(formBtns);
 
 	return dialog;
 }

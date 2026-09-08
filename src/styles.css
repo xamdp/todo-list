@@ -9,6 +9,7 @@ body {
 	--text: #231F20;
 	--primary-bg: #FFFFFF;
 	--accent-color: #C3392C;
+	--accent-bg: #F5F5F5;
 	--secondary-bg: #FCFAF8;
 }
 
@@ -66,18 +67,22 @@ body {
 
 /* diaglog relative to .todos-container */
 .todos-container {
+	display: flex;
 	position: relative;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
 }
 
 dialog {
 	display: flex;
 	position: absolute;
-	top: 50%;
+	top: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 80%;
 	max-width: 800px;
-	padding: 2rem;
+	padding: 8px;
 	border-radius: 10px;
 	border: 1px solid #ccc;
 }
@@ -102,11 +107,12 @@ dialog::backdrop {
 .todo-form {
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
 }
 
 .form-btns {
 	display: flex;
-	gap: 1rem;
+	gap: 5px;
 }
 
 .todo-title {
@@ -114,7 +120,7 @@ dialog::backdrop {
 }
 
 .todo-title input {
-	font-size: 2rem;
+	font-size: 1.3rem;
 	border: none;
 	outline: none;
 	box-shadow: none;
@@ -123,10 +129,16 @@ dialog::backdrop {
 	width: 100%;
 }
 
+.outer-container {
+	display: flex;
+	justify-content: space-between;
+	gap: 5px;
+}
+
 .fields-container {
 	display: flex;
 	justify-content: flex-start;
-	gap: 5px;
+	gap: 4px;
 }
 
 .todo-desc,
@@ -139,6 +151,8 @@ dialog::backdrop {
 	justify-content: center;
 	text-align: center;
 	padding: 3px 4px;
+	background-color: var(--primary-bg);
+	color: #666666;
 }
 
 .todo-desc p,
@@ -146,20 +160,59 @@ dialog::backdrop {
 .todo-priority p {
 	margin: 0;
 	align-self: center;
+	color: #ccc;
 }
-
 
 .desc-icon,
 .duedate-icon,
 .priority-icon {
 	display: block;
 	align-self: center;
-}
-
-
-.desc-icon,
-.duedate-icon,
-.priority-icon {
 	width: auto;
 	height: 20px;
+}
+
+.cancel-btn,
+.add-btn {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 5px;
+	justify-content: center;
+	border: none;
+	cursor: pointer;
+}
+
+.cancel-btn {
+	background-color: transparent;
+	color: #666;
+}
+
+.cancel-btn:hover {
+	background-color: var(--accent-bg);
+}
+
+.add-btn {
+	background-color: #e74c3c;
+	color: var(--primary-bg);
+}
+
+.add-btn:hover {
+	background-color: #c0392b;
+}
+
+.cancel-icon,
+.arrow-up-icon {
+	height: 20px;
+	width: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.active {
+	display: block;
 }
