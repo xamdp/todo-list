@@ -154,7 +154,6 @@ dialog::backdrop {
 }
 
 .todo-desc,
-.todo-duedate,
 .todo-priority {
 	border: 1px solid #ccc;
 	border-radius: 8px;
@@ -167,8 +166,37 @@ dialog::backdrop {
 	color: #666666;
 }
 
+/* span tag */
+.datepicker-toggle {
+	/* border: 1px solid #ccc; */
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	background-color: var(--primary-bg);
+	color: #ccc;
+	border: none;
+}
+
+
+.datepicker-toggle-btn {
+	display: flex;
+	border-radius: 8px;
+	justify-content: center;
+	text-align: center;
+	background-color: var(--primary-bg);
+	padding: 3px 4px;
+	color: #ccc;
+	border: 1px solid #ccc;
+	gap: 5px;
+}
+
+.datepicker-toggle-btn p {
+	margin: 0;
+	align-self: center;
+	color: #ccc;
+}
+
 .todo-desc p,
-.todo-duedate p,
 .todo-priority p {
 	margin: 0;
 	align-self: center;
@@ -176,8 +204,8 @@ dialog::backdrop {
 }
 
 .desc-icon,
-.duedate-icon,
-.priority-icon {
+.priority-icon,
+.calendar-icon {
 	display: block;
 	align-self: center;
 	width: auto;

@@ -20,6 +20,11 @@ function closeTodoModal() {
 	addBtn.classList.remove("hidden");
 	addBtn.classList.toggle("active");
 
+	// hide datepicker-input
+	const dueDateInput = document.querySelector(".datepicker-input");
+	dueDateInput.classList.toggle("hidden");
+	dueDateInput.classList.toggle("active");
+
 	// this is ugly, but works
 	const descInput = document.querySelector("#desc-input");
 	if (descInput === null) {
@@ -46,6 +51,12 @@ function descriptionBtnToggle() {
 	createDescriptionInput();
 }
 
+function dueDateBtnToggle() {
+	const dueDateInput = document.querySelector(".datepicker-input");
+	dueDateInput.classList.toggle("active");
+	dueDateInput.classList.remove("hidden");
+}
+
 export function initListeners() {
 	document
 		.querySelector(".add-todo-btn")
@@ -62,4 +73,8 @@ export function initListeners() {
 	document
 		.querySelector(".todo-desc")
 		.addEventListener("click", descriptionBtnToggle);
+
+	document
+		.querySelector(".datepicker-toggle-btn")
+		.addEventListener("click", dueDateBtnToggle);
 }

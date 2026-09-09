@@ -87,16 +87,18 @@ export function createTodoForm() {
 	descriptionIcon.querySelector("svg").classList.add("desc-icon");
 	description.append(descriptionIcon, descriptionText);
 
-	// as for dueDate i need to use a library called date-fns
-	const dueDate = document.createElement("button");
-	dueDate.type = "button";
-	dueDate.className = "todo-duedate";
-	const dueDateText = document.createElement("p");
-	dueDateText.textContent = "Date";
-	const dueDateIcon = document.createElement("div");
-	dueDateIcon.innerHTML = DateIcon;
-	dueDateIcon.querySelector("svg").classList.add("duedate-icon");
-	dueDate.append(dueDateIcon, dueDateText);
+	// it seems that date-fns is only for calculating date not for UI
+	// const dueDate = document.createElement("button");
+	// dueDate.type = "button";
+	// dueDate.className = "todo-duedate";
+	// const dueDateText = document.createElement("p");
+	// dueDateText.textContent = "Date";
+	// const dueDateIcon = document.createElement("div");
+	// dueDateIcon.innerHTML = DateIcon;
+	// dueDateIcon.querySelector("svg").classList.add("duedate-icon");
+	// dueDate.append(dueDateIcon, dueDateText);
+
+	const dueDate = datePicker();
 
 	// in priority, i need to create a dropdown selection up to 4 priority levels
 	const priority = document.createElement("button");
@@ -139,12 +141,42 @@ export function createTodoForm() {
 	return dialog;
 }
 
+function datePicker() {
+	const dateToggle = document.createElement("span"); // container
+	dateToggle.className = "datepicker-toggle";
+
+	const toggleBtn = document.createElement("button"); // this should be button
+	toggleBtn.type = "button";
+	toggleBtn.className = "datepicker-toggle-btn";
+
+	const calendarIcon = document.createElement("div"); // icon inside div
+	calendarIcon.innerHTML = DateIcon;
+	calendarIcon.querySelector("svg").classList.add("calendar-icon");
+
+	const dueDateText = document.createElement("p");
+	dueDateText.textContent = "Date";
+
+	toggleBtn.append(calendarIcon, dueDateText);
+
+	const dueDateInput = document.createElement("input"); // input, hidden by default
+	dueDateInput.type = "date";
+	dueDateInput.className = "datepicker-input";
+	dueDateInput.classList.toggle("hidden");
+	dateToggle.append(toggleBtn, dueDateInput);
+
+	return dateToggle;
+}
+
 export function createDescriptionInput() {
 	const descInput = document.createElement("input");
 	descInput.id = "desc-input";
 	descInput.placeholder = "Description of my todo";
 	document.querySelector(".todo-title").append(descInput);
 }
+
+// export function createDueDateInput() {
+// 	document.querySelector(".todo-duedate").append(dueDateInput);
+// }
 
 // this is to render the created todo from the todo modal
 export function createTodoItem(todo) {
