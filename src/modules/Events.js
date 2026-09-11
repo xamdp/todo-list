@@ -51,10 +51,14 @@ function descriptionBtnToggle() {
 	createDescriptionInput();
 }
 
-function dueDateBtnToggle() {
-	const dueDateInput = document.querySelector(".datepicker-input");
-	dueDateInput.classList.toggle("active");
-	dueDateInput.classList.remove("hidden");
+function dueDateBtnToggle(event) {
+	const dateText = document.querySelector(".date-text");
+	dateText.classList.toggle("hidden");
+	dateText.textContent = event.target.value;
+}
+
+function priorityBtnToggle() {
+	console.log("hello");
 }
 
 export function initListeners() {
@@ -75,6 +79,10 @@ export function initListeners() {
 		.addEventListener("click", descriptionBtnToggle);
 
 	document
-		.querySelector(".datepicker-toggle-btn")
-		.addEventListener("click", dueDateBtnToggle);
+		.querySelector(".datepicker-input")
+		.addEventListener("input", dueDateBtnToggle);
+
+	document
+		.querySelector(".todo-priority")
+		.addEventListener("click", priorityBtnToggle);
 }
