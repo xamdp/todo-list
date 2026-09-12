@@ -70,6 +70,9 @@ export function createTodoForm() {
 	const description = createDescriptionField();
 	const dueDate = datePicker();
 	const priority = createPriorityField();
+	const priorities = createPriorityDropdown();
+
+	priority.append(priorities);
 
 	fieldsContainer.append(description, dueDate, priority);
 	outerContainer.append(fieldsContainer);
@@ -160,10 +163,36 @@ function createPriorityDropdown() {
 	const priorities = document.createElement("div");
 	priorities.className = "priorities-dropdown";
 
-	// will make a forEach here
 	const firstPrio = document.createElement("div");
+	firstPrio.className = "priority-select";
 	const flag1 = document.createElement("img");
-	const text = document.createElement("p");
+	const text1 = document.createElement("p");
+	text1.textContent = "Priority 1";
+	firstPrio.append(flag1, text1);
+
+	const secondPrio = document.createElement("div");
+	secondPrio.className = "priority-select";
+	const flag2 = document.createElement("img");
+	const text2 = document.createElement("p");
+	text2.textContent = "Priority 2";
+	secondPrio.append(flag2, text2);
+
+	const thirdPrio = document.createElement("div");
+	thirdPrio.className = "priority-select";
+	const flag3 = document.createElement("img");
+	const text3 = document.createElement("p");
+	text3.textContent = "Priority 3";
+	thirdPrio.append(flag3, text3);
+
+	const fourthPrio = document.createElement("div");
+	fourthPrio.className = "priority-select";
+	const flag4 = document.createElement("img");
+	const text4 = document.createElement("p");
+	text4.textContent = "Priority 4";
+	fourthPrio.append(flag4, text4);
+	priorities.append(firstPrio, secondPrio, thirdPrio, fourthPrio);
+	priorities.classList.toggle("hidden");
+	return priorities;
 }
 
 function datePicker() {

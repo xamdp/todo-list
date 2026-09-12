@@ -236,6 +236,43 @@ dialog::backdrop {
 	color: #ccc;
 }
 
+.todo-priority {
+	position: relative;
+}
+
+.priorities-dropdown {
+	position: absolute;
+	left: 0;
+	top: 30px;
+	width: 150px;
+	margin: 0;
+	cursor: pointer;
+	border: none;
+	gap: 4px;
+	padding: 0;
+	border-radius: 6px;
+	background-color: var(--primary-bg);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.priority-select {
+	display: flex;
+	gap: 3px;
+	padding: 10px 16px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.priority-select p {
+	flex-shrink: 0;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.priority-select:hover {
+	background-color: var(--accent-bg);
+}
+
 .todo-desc p,
 .todo-priority p {
 	margin: 0;

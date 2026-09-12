@@ -57,8 +57,18 @@ function dueDateBtnToggle(event) {
 	dateText.textContent = event.target.value;
 }
 
-function priorityBtnToggle() {
-	console.log("hello");
+function priorityBtnToggle(event) {
+	console.log(event.target);
+	const priorityDropdown = document.querySelector(".priorities-dropdown");
+	const priorityBtn = document.querySelector(".todo-priority");
+
+	if (
+		!priorityDropdown.contains(event.target) &&
+		!priorityBtn.contains(event.target)
+	) {
+		priorityDropdown.classList.toggle("hidden");
+	}
+	// priorityDropdown.classList.toggle("hidden");
 }
 
 export function initListeners() {
@@ -85,4 +95,6 @@ export function initListeners() {
 	document
 		.querySelector(".todo-priority")
 		.addEventListener("click", priorityBtnToggle);
+
+	document.addEventListener("click", priorityBtnToggle);
 }
