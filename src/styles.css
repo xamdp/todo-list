@@ -28,6 +28,8 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	padding: 1rem;
+	font-size: 2rem;
+	font-weight: 600;
 }
 
 .content-wrapper {
@@ -40,10 +42,29 @@ body {
 }
 
 .sidebar {
-	border-right: 1px solid black;
+	border-right: 1px solid var(--text);
 	flex-shrink: 0;
-	width: 256px;
+	width: 300px;
 	padding: 1.5rem;
+}
+
+.sidebar-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	font-size: 1.2rem;
+}
+
+.sidebar-heading {
+	font-weight: 600;
+	margin: 0;
+}
+
+.sidebar-icon {
+	align-self: center;
+	width: 1em;
+	height: 1em;
 }
 
 .main-content {

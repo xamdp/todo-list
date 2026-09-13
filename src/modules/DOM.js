@@ -10,7 +10,17 @@ export function Sidebar() {
 	const sidebar = document.createElement("div");
 	sidebar.className = "sidebar";
 
-	sidebar.textContent = "Todo List";
+	const sidebarHeader = document.createElement("div");
+	sidebarHeader.className = "sidebar-header";
+	const sidebarHeading = document.createElement("h2");
+	sidebarHeading.className = "sidebar-heading";
+	sidebarHeading.textContent = "My Todo List";
+	const sidebarIcon = document.createElement("div");
+	sidebarIcon.innerHTML = TodoIcon;
+	sidebarIcon.querySelector("svg").classList.add("sidebar-icon");
+
+	sidebarHeader.append(sidebarIcon, sidebarHeading);
+	sidebar.append(sidebarHeader);
 	document.querySelector(".container").prepend(sidebar);
 }
 
@@ -18,7 +28,7 @@ export function Header() {
 	const header = document.createElement("header");
 	header.className = "heading";
 
-	header.textContent = "My Todo List";
+	header.textContent = "Todos";
 
 	document.querySelector(".content-wrapper").prepend(header);
 }
