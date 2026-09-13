@@ -25,6 +25,10 @@ function closeTodoModal() {
 	dueDateInput.classList.toggle("hidden");
 	dueDateInput.classList.toggle("active");
 
+	const priorityText = document.querySelector(".priority-text");
+	priorityText.classList.add("hidden");
+	priorityText.classList.remove("active");
+
 	// this is ugly, but works
 	const descInput = document.querySelector("#desc-input");
 	if (descInput === null) {
@@ -57,18 +61,25 @@ function dueDateBtnToggle(event) {
 	dateText.textContent = event.target.value;
 }
 
-function priorityBtnToggle(event) {
-	console.log(event.target);
+function priorityBtnToggle() {
+	const priorityDropdown = document.querySelector(".priorities-dropdown");
+	priorityDropdown.classList.toggle("hidden");
+}
+
+function handleCloseDropdown(event) {
 	const priorityDropdown = document.querySelector(".priorities-dropdown");
 	const priorityBtn = document.querySelector(".todo-priority");
-
-	if (
-		!priorityDropdown.contains(event.target) &&
-		!priorityBtn.contains(event.target)
-	) {
-		priorityDropdown.classList.toggle("hidden");
+	if (!priorityBtn.contains(event.target)) {
+		priorityDropdown.classList.add("hidden");
 	}
-	// priorityDropdown.classList.toggle("hidden");
+}
+
+function displaySelectedPriority(event) {
+	const priorityText = document.querySelector(".priority-text");
+	// console.log("currentTarget:", event.currentTarget);
+	const selectedPriority = event.currentTarget.querySelector("p").textContent;
+	priorityText.textContent = selectedPriority;
+	priorityText.classList.remove("hidden");
 }
 
 export function initListeners() {
@@ -96,5 +107,11 @@ export function initListeners() {
 		.querySelector(".todo-priority")
 		.addEventListener("click", priorityBtnToggle);
 
-	document.addEventListener("click", priorityBtnToggle);
+	document
+		.querySelector(".todos-container")
+		.addEventListener("click", handleCloseDropdown);
+
+	document.querySelectorAll(".priority-select").forEach((priority) => {
+		priority.addEventListener("click", displaySelectedPriority);
+	});
 }

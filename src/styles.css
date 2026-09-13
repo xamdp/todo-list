@@ -261,12 +261,27 @@ dialog::backdrop {
 	padding: 10px 16px;
 	cursor: pointer;
 	transition: background 0.2s;
+	color: var(--text);
 }
 
 .priority-select p {
 	flex-shrink: 0;
 	font-size: 16px;
 	font-weight: 400;
+	color: var(--text) !important;
+
+}
+
+.priority-text {
+	justify-self: center;
+	align-self: center;
+	margin: 0;
+	flex-shrink: 0;
+	padding: 3px;
+	border-radius: 5px;
+	color: var(--text);
+	background-color: mediumpurple;
+	font-weight: 500;
 }
 
 .priority-select:hover {

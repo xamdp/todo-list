@@ -123,11 +123,15 @@ function createUserInput() {
 	dateText.className = "date-text";
 	dateText.classList.toggle("hidden");
 
+	const priorityText = document.createElement("p");
+	priorityText.className = "priority-text";
+	priorityText.classList.toggle("hidden");
+
 	const titleInput = document.createElement("input");
 	titleInput.id = "title-input";
 	titleInput.placeholder = "Finish the Todo User Interface";
 
-	titleDateContainer.append(dateText, titleInput);
+	titleDateContainer.append(dateText, priorityText, titleInput);
 	title.append(titleDateContainer);
 	return title;
 }
