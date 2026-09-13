@@ -6,9 +6,9 @@ function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
 	modal.style.display = "block";
 
-	const addBtn = document.querySelector("#addTodoBtn");
-	addBtn.classList.remove("active");
-	addBtn.classList.toggle("hidden");
+	const addBtnDiv = document.querySelector(".card-div");
+	// addBtnDiv.classList.remove("active");
+	addBtnDiv.classList.toggle("hidden");
 }
 
 function closeTodoModal() {
@@ -16,9 +16,9 @@ function closeTodoModal() {
 	const modal = document.getElementById("todo-modal");
 	modal.style.display = "none";
 
-	const addBtn = document.querySelector("#addTodoBtn");
-	addBtn.classList.remove("hidden");
-	addBtn.classList.toggle("active");
+	const addBtnDiv = document.querySelector(".card-div");
+	addBtnDiv.classList.remove("hidden");
+	// addBtnDiv.classList.toggle("active");
 
 	// hide datepicker-input
 	const dueDateInput = document.querySelector(".datepicker-input");
@@ -37,17 +37,32 @@ function closeTodoModal() {
 	descInput.remove();
 }
 
+function resetForm() {
+	const todoForm = document.querySelector(".todo-form");
+	const dateText = document.querySelector(".date-text");
+	const priorityText = document.querySelector(".priority-text");
+	todoForm.reset();
+	// reset the date
+	dateText.textContent = "";
+	dateText.classList.toggle("hidden");
+	// reset the priority
+	priorityText.textContent = "";
+	priorityText.classList.toggle("hidden");
+}
+
 // this should handle the submitted todo from
-function handleAddTodo() {
+function handleAddTodo(event) {
 	const userInput = {
 		title: document.querySelector("#title-input").value,
 		desc: document.querySelector("#desc-input").value,
-		dueDate: document.querySelector("#duedate-input").value, // i need to change this
-		priority: document.querySelector("#priority-input").value, // this too
+		dueDate: document.querySelector(".date-text").textContent,
+		priority: document.querySelector(".priority-text").textContent,
 	};
-	const newTodo = createTodo(userInput); // whats the difference of createTodo and addTodo
+	// console.log(userInput);
+	const newTodo = createTodo(userInput);
 	addTodo(newTodo);
-	render(); // idk yet, where this will be used
+	resetForm();
+	// render(); // idk yet, where this will be used
 }
 
 function descriptionBtnToggle() {
@@ -76,7 +91,6 @@ function handleCloseDropdown(event) {
 
 function displaySelectedPriority(event) {
 	const priorityText = document.querySelector(".priority-text");
-	// console.log("currentTarget:", event.currentTarget);
 	const selectedPriority = event.currentTarget.querySelector("p").textContent;
 	priorityText.textContent = selectedPriority;
 	priorityText.classList.remove("hidden");
@@ -91,9 +105,10 @@ export function initListeners() {
 		.querySelector("#cancelBtn")
 		.addEventListener("click", closeTodoModal);
 
-	document
-		.querySelector("#addBtn")
-		.addEventListener("submit", handleAddTodo, false);
+	document.querySelector(".todo-form").addEventListener("submit", (event) => {
+		event.preventDefault();
+		handleAddTodo();
+	});
 
 	document
 		.querySelector(".todo-desc")

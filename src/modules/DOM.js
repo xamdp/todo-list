@@ -3,6 +3,8 @@ import DateIcon from "../asset/icons/date.svg";
 import PriorityIcon from "../asset/icons/priority.svg";
 import CancelIcon from "../asset/icons/cancel.svg";
 import ArrowUpIcon from "../asset/icons/arrow-up.svg";
+import TodoIcon from "../asset/icons/todo.svg";
+import PriorityFlag from "../asset/icons/flag.svg";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -43,12 +45,19 @@ export function TodosContainer() {
 function addTodoCard() {
 	const cardDiv = document.createElement("div");
 	cardDiv.className = "card-div";
+	const todoIcon = document.createElement("div");
+	todoIcon.className = "todo-icon";
+	todoIcon.innerHTML = TodoIcon;
+
+	const cardText = document.createElement("p");
+	cardText.className = "card-text";
+	cardText.textContent = "Create some tasks for your projects here!";
 
 	const addNewTodoBtn = document.createElement("button");
 	addNewTodoBtn.id = "addTodoBtn";
 	addNewTodoBtn.className = "add-todo-btn";
 	addNewTodoBtn.textContent = "+  Add Todo";
-	cardDiv.append(addNewTodoBtn);
+	cardDiv.append(todoIcon, cardText, addNewTodoBtn);
 	return cardDiv;
 }
 
@@ -96,7 +105,7 @@ function createAddBtn() {
 	const addBtn = document.createElement("button");
 	addBtn.id = "addBtn";
 	addBtn.className = "add-btn";
-	addBtn.type = "button";
+	addBtn.type = "submit";
 	addBtn.innerHTML = ArrowUpIcon;
 	addBtn.querySelector("svg").classList.add("arrow-up-icon");
 	return addBtn;
@@ -169,28 +178,36 @@ function createPriorityDropdown() {
 
 	const firstPrio = document.createElement("div");
 	firstPrio.className = "priority-select";
-	const flag1 = document.createElement("img");
+	const flag1 = document.createElement("div");
+	flag1.innerHTML = PriorityFlag;
+	flag1.querySelector("svg").classList.add("priority-flag");
 	const text1 = document.createElement("p");
 	text1.textContent = "Priority 1";
 	firstPrio.append(flag1, text1);
 
 	const secondPrio = document.createElement("div");
 	secondPrio.className = "priority-select";
-	const flag2 = document.createElement("img");
+	const flag2 = document.createElement("div");
+	flag2.innerHTML = PriorityFlag;
+	flag2.querySelector("svg").classList.add("priority-flag");
 	const text2 = document.createElement("p");
 	text2.textContent = "Priority 2";
 	secondPrio.append(flag2, text2);
 
 	const thirdPrio = document.createElement("div");
 	thirdPrio.className = "priority-select";
-	const flag3 = document.createElement("img");
+	const flag3 = document.createElement("div");
+	flag3.innerHTML = PriorityFlag;
+	flag3.querySelector("svg").classList.add("priority-flag");
 	const text3 = document.createElement("p");
 	text3.textContent = "Priority 3";
 	thirdPrio.append(flag3, text3);
 
 	const fourthPrio = document.createElement("div");
 	fourthPrio.className = "priority-select";
-	const flag4 = document.createElement("img");
+	const flag4 = document.createElement("div");
+	flag4.innerHTML = PriorityFlag;
+	flag4.querySelector("svg").classList.add("priority-flag");
 	const text4 = document.createElement("p");
 	text4.textContent = "Priority 4";
 	fourthPrio.append(flag4, text4);
