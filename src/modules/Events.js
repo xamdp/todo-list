@@ -1,29 +1,28 @@
 import { createTodo } from "./factories/todoFactory.js";
-import { addTodo } from "./Todo.js";
-import { createDescriptionInput, render } from "./DOM.js";
+import { addTodo, getTodos } from "./Todo.js";
+import { clearDisplay, createDescriptionInput, displayTodos } from "./DOM.js";
+import { checkDateInput } from "./helpers.js";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
-	modal.style.display = "block";
+	modal.classList.toggle("active");
 
 	const addBtnDiv = document.querySelector(".card-div");
-	// addBtnDiv.classList.remove("active");
 	addBtnDiv.classList.toggle("hidden");
 }
 
 function closeTodoModal() {
 	// closes the modal but then addTodoBtn is showed again and description input is reset
 	const modal = document.getElementById("todo-modal");
-	modal.style.display = "none";
+	modal.classList.toggle("active");
 
 	const addBtnDiv = document.querySelector(".card-div");
 	addBtnDiv.classList.remove("hidden");
 	// addBtnDiv.classList.toggle("active");
 
-	// hide datepicker-input
+	// hide datepicker-input, ** it seems, i don't need to hide this
 	const dueDateInput = document.querySelector(".datepicker-input");
-	dueDateInput.classList.toggle("hidden");
-	dueDateInput.classList.toggle("active");
+	// dueDateInput.classList.add("hidden");
 
 	const priorityText = document.querySelector(".priority-text");
 	priorityText.classList.add("hidden");
@@ -51,18 +50,20 @@ function resetForm() {
 }
 
 // this should handle the submitted todo from
-function handleAddTodo(event) {
+function handleAddTodo() {
+	// i need to put some logic here that verifies the inputs
 	const userInput = {
 		title: document.querySelector("#title-input").value,
 		desc: document.querySelector("#desc-input").value,
 		dueDate: document.querySelector(".date-text").textContent,
 		priority: document.querySelector(".priority-text").textContent,
 	};
-	// console.log(userInput);
 	const newTodo = createTodo(userInput);
 	addTodo(newTodo);
 	resetForm();
-	// render(); // idk yet, where this will be used
+	const dataToDisplay = getTodos();
+	clearDisplay();
+	displayTodos(dataToDisplay);
 }
 
 function descriptionBtnToggle() {
@@ -70,10 +71,13 @@ function descriptionBtnToggle() {
 	createDescriptionInput();
 }
 
+// .date-text should not be hidden when the user decided to change the date
 function dueDateBtnToggle(event) {
 	const dateText = document.querySelector(".date-text");
-	dateText.classList.toggle("hidden");
+	dateText.classList.remove("hidden");
+	// text-content should not set antything if the target.value holds no value
 	dateText.textContent = event.target.value;
+	checkDateInput();
 }
 
 function priorityBtnToggle() {

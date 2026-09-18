@@ -45,9 +45,12 @@ export function TodosContainer() {
 	todosContainer.className = "todos-container";
 	document.querySelector(".main-content").append(todosContainer);
 
-	const form = createTodoForm();
-	todosContainer.prepend(form);
+	const todosList = document.createElement("div");
+	todosList.className = "todos-list";
+	todosContainer.prepend(todosList);
 
+	const form = createTodoForm();
+	todosContainer.append(form);
 	const card = addTodoCard();
 	todosContainer.append(card);
 }
@@ -71,10 +74,39 @@ function addTodoCard() {
 	return cardDiv;
 }
 
+export function displayTodos(todos) {
+	todos.forEach((todo) => {
+		const todoContainer = document.createElement("div");
+		todoContainer.className = "todo-container";
+
+		const checkbox = document.createElement("input");
+		checkbox.className = "todo-checkbox";
+		checkbox.type = "checkbox";
+
+		const actionsContainer = document.createElement("div");
+		actionsContainer.className = "todo";
+
+		const title = document.createElement("p");
+		title.textContent = todo.title;
+
+		const description = document.createElement("p");
+		description.textContent = todo.description;
+
+		const date = document.createElement("span");
+		date.textContent = todo.dueDate;
+
+		const priority = document.createElement("p");
+		priority.textContent = todo.priority;
+
+		actionsContainer.append(title, description, date, priority);
+		todoContainer.append(checkbox, actionsContainer);
+		document.querySelector(".todos-list").append(todoContainer);
+	});
+}
+
 export function createTodoForm() {
 	const dialog = document.createElement("dialog");
 	dialog.id = "todo-modal";
-	dialog.style.display = "none";
 	const todoForm = document.createElement("form");
 	todoForm.className = "todo-form";
 
@@ -147,6 +179,7 @@ function createUserInput() {
 	priorityText.classList.toggle("hidden");
 
 	const titleInput = document.createElement("input");
+	titleInput.required = true;
 	titleInput.id = "title-input";
 	titleInput.placeholder = "Finish the Todo User Interface";
 
@@ -244,6 +277,7 @@ function datePicker() {
 	toggleBtn.append(calendarIcon, dueDateText);
 
 	const dueDateInput = document.createElement("input"); // input, hidden by default
+	dueDateInput.required = true;
 	dueDateInput.type = "date";
 	dueDateInput.className = "datepicker-input";
 	dateToggle.append(toggleBtn, dueDateInput);
@@ -253,9 +287,14 @@ function datePicker() {
 
 export function createDescriptionInput() {
 	const descInput = document.createElement("input");
+	descInput.required = true;
 	descInput.id = "desc-input";
 	descInput.placeholder = "Description of my todo";
 	document.querySelector(".todo-title").append(descInput);
+}
+
+export function clearDisplay() {
+	document.querySelector(".todos-list").replaceChildren();
 }
 
 export function createTodoItem(todo) {
