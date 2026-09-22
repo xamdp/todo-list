@@ -1,7 +1,7 @@
-export function createTodo({ title, desc, dueDate, priority }) {
+export function createTodo({ title, description, dueDate, priority }) {
 	return {
 		title: title,
-		description: desc,
+		description: description,
 		dueDate: dueDate,
 		priority: priority,
 	};

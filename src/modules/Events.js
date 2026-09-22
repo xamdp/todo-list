@@ -54,7 +54,7 @@ function handleAddTodo() {
 	// i need to put some logic here that verifies the inputs
 	const userInput = {
 		title: document.querySelector("#title-input").value,
-		desc: document.querySelector("#desc-input").value,
+		description: document.querySelector("#desc-input").value,
 		dueDate: document.querySelector(".date-text").textContent,
 		priority: document.querySelector(".priority-text").textContent,
 	};
