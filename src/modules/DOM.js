@@ -5,6 +5,7 @@ import CancelIcon from "../asset/icons/cancel.svg";
 import ArrowUpIcon from "../asset/icons/arrow-up.svg";
 import TodoIcon from "../asset/icons/todo.svg";
 import PriorityFlag from "../asset/icons/flag.svg";
+import TodoMenuIcon from "../asset/icons/menu-todo.svg";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -21,7 +22,38 @@ export function Sidebar() {
 
 	sidebarHeader.append(sidebarIcon, sidebarHeading);
 	sidebar.append(sidebarHeader);
+	const menuSidebar = MenuSidebar();
+	sidebar.append(menuSidebar);
 	document.querySelector(".container").prepend(sidebar);
+}
+
+function MenuSidebar() {
+	const menuSidebar = document.createElement("div");
+	menuSidebar.className = "menu-sidebar";
+
+	const menuTitle = document.createElement("h3");
+	menuTitle.className = "menu-title";
+	menuTitle.textContent = "Menu";
+
+	const menu = document.createElement("div");
+	menu.className = "menu";
+
+	const addTodoSelection = document.createElement("div");
+	addTodoSelection.className = "selection";
+
+	const icon = document.createElement("div");
+	icon.innerHTML = TodoMenuIcon;
+	icon.querySelector("svg").classList.add("menu-add-icon");
+
+	const addTodoBtn = document.createElement("button");
+	addTodoBtn.textContent = "Add Todo";
+	addTodoBtn.className = "show-modal";
+
+	addTodoSelection.append(icon, addTodoBtn);
+
+	menu.append(addTodoSelection);
+	menuSidebar.prepend(menuTitle, menu);
+	return menuSidebar;
 }
 
 export function Header() {
@@ -68,10 +100,18 @@ function addTodoCard() {
 
 	const addNewTodoBtn = document.createElement("button");
 	addNewTodoBtn.id = "addTodoBtn";
-	addNewTodoBtn.className = "add-todo-btn";
+	addNewTodoBtn.classList.add("add-todo-btn");
 	addNewTodoBtn.textContent = "+  Add Todo";
 	cardDiv.append(todoIcon, cardText, addNewTodoBtn);
 	return cardDiv;
+}
+
+// hides card-div if there is todos present in the .todos-list container
+export function hideAddTodoCard() {
+	const cardDiv = document.querySelector(".card-div");
+	const todosList = document.querySelector(".todos-list");
+	console.log("are they same?", cardDiv === todosList);
+	cardDiv.replaceChildren();
 }
 
 export function displayTodos(todos) {

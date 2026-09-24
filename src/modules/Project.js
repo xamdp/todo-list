@@ -1,9 +1,5 @@
-// import { createTodo } from "./factories/todoFactory.js";
-// import { addTodo } from "./Todo.js";
-
 export function getProjects() { }
 
-// i don't understand, do i use the addTodo() from ./Todo? or what
 export function createProject(name) {
 	let todos = [];
 	return {
@@ -11,8 +7,10 @@ export function createProject(name) {
 		addTodo(todo) {
 			todos.push(todo);
 		},
-		removeTodo() {
-			todos.splice(i, 1);
+		removeTodo(id) {
+			const index = todos.findIndex((todo) => todo.id === id);
+			if (index < 0) return;
+			todos.splice(index, 1);
 		},
 		getTodos() {
 			return todos;

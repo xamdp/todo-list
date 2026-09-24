@@ -2,6 +2,7 @@ import { createTodo } from "./factories/todoFactory.js";
 import { addTodo, getTodos } from "./Todo.js";
 import { clearDisplay, createDescriptionInput, displayTodos } from "./DOM.js";
 import { checkDateInput } from "./helpers.js";
+import { add } from "date-fns";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
@@ -101,9 +102,21 @@ function displaySelectedPriority(event) {
 }
 
 export function initListeners() {
+	const cardDiv = document.querySelector(".card-div");
+	cardDiv.addEventListener("click", (event) => {
+		const addBtn = event.target.closest(".add-todo-btn");
+
+		if (!addBtn || !cardDiv.contains(addBtn)) return;
+		console.log("addbtn clicked", addBtn);
+	});
+
 	document
-		.querySelector(".add-todo-btn")
+		.querySelector(".show-modal")
 		.addEventListener("click", handleAddTodoBtnClick);
+
+	// document
+	// 	.querySelector(".add-todo-btn")
+	// 	.addEventListener("click", handleAddTodoBtnClick);
 
 	document
 		.querySelector("#cancelBtn")

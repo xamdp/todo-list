@@ -1,3 +1,5 @@
+import { hideAddTodoCard } from "./DOM.js";
+
 export function checkDateInput() {
 	// will add more checks here
 	const dateText = document.querySelector(".date-text");
@@ -6,4 +8,9 @@ export function checkDateInput() {
 	} else {
 		dateText.style.backgroundColor = "pink";
 	}
+}
+
+export function isTodosExist() {
+	const cardDiv = document.querySelector(".card-div");
+	if (cardDiv.hasChildNodes()) hideAddTodoCard();
 }

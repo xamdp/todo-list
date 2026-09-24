@@ -19,8 +19,9 @@ body {
 
 .container {
 	display: flex;
-	height: 100vh;
+	/* height: 100vh; */
 	font-family: "Quicksand", sans-serif;
+	align-items: flex-start;
 }
 
 .heading {
@@ -37,7 +38,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	overflow: hidden;
 	gap: 2rem;
 }
 
@@ -46,6 +46,9 @@ body {
 	flex-shrink: 0;
 	width: 300px;
 	padding: 1.5rem;
+	top: 0;
+	position: sticky;
+	height: 100vh;
 }
 
 .sidebar-header {
@@ -65,6 +68,31 @@ body {
 	align-self: center;
 	width: 1em;
 	height: 1em;
+}
+
+.menu-sidebar {
+	display: flex;
+	flex-direction: column;
+}
+
+.selection {
+	display: flex;
+	gap: 5px;
+	padding: 0.5rem;
+}
+
+.selection button {
+	background-color: var(--accent-color);
+	border: none;
+	color: var(--primary-bg);
+
+	padding: 8px 16px;
+}
+
+.menu-add-icon {
+	justify-self: center;
+	width: 25px;
+	height: auto;
 }
 
 .main-content {
@@ -98,7 +126,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	overflow-y: auto;
+	/* overflow-y: auto; */
 }
 
 .todo-container {
