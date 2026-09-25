@@ -5,7 +5,10 @@ import CancelIcon from "../asset/icons/cancel.svg";
 import ArrowUpIcon from "../asset/icons/arrow-up.svg";
 import TodoIcon from "../asset/icons/todo.svg";
 import PriorityFlag from "../asset/icons/flag.svg";
-import TodoMenuIcon from "../asset/icons/menu-todo.svg";
+import {
+	addTodoSelection,
+	viewTodosSelection,
+} from "./components/SidebarComponent.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -38,20 +41,10 @@ function MenuSidebar() {
 	const menu = document.createElement("div");
 	menu.className = "menu";
 
-	const addTodoSelection = document.createElement("div");
-	addTodoSelection.className = "selection";
+	const addTodoBtn = addTodoSelection();
+	const viewTodosBtn = viewTodosSelection();
 
-	const icon = document.createElement("div");
-	icon.innerHTML = TodoMenuIcon;
-	icon.querySelector("svg").classList.add("menu-add-icon");
-
-	const addTodoBtn = document.createElement("button");
-	addTodoBtn.textContent = "Add Todo";
-	addTodoBtn.className = "show-modal";
-
-	addTodoSelection.append(icon, addTodoBtn);
-
-	menu.append(addTodoSelection);
+	menu.append(addTodoBtn, viewTodosBtn);
 	menuSidebar.prepend(menuTitle, menu);
 	return menuSidebar;
 }
@@ -111,7 +104,7 @@ export function hideAddTodoCard() {
 	const cardDiv = document.querySelector(".card-div");
 	const todosList = document.querySelector(".todos-list");
 	console.log("are they same?", cardDiv === todosList);
-	cardDiv.replaceChildren();
+	// cardDiv.replaceChildren();
 }
 
 export function displayTodos(todos) {

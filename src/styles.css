@@ -39,19 +39,21 @@ body {
 	flex-direction: column;
 	flex: 1;
 	gap: 2rem;
+	background-color: var(--primary-bg);
 }
 
 .sidebar {
-	border-right: 1px solid var(--text);
+	/* border-right: 1px solid var(--text); */
 	flex-shrink: 0;
 	width: 300px;
-	padding: 1.5rem;
 	top: 0;
 	position: sticky;
 	height: 100vh;
+	background-color: var(--secondary-bg);
 }
 
 .sidebar-header {
+	padding-top: 1rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -75,22 +77,30 @@ body {
 	flex-direction: column;
 }
 
+.menu-title {
+	padding-left: 1.5rem;
+}
+
 .selection {
 	display: flex;
-	gap: 5px;
-	padding: 0.5rem;
-}
-
-.selection button {
-	background-color: var(--accent-color);
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+	gap: 10px;
+	background-color: transparent;
 	border: none;
-	color: var(--primary-bg);
-
+	color: var(--text);
 	padding: 8px 16px;
+	border-radius: 8px;
+	font: inherit;
+	width: 100%;
 }
 
-.menu-add-icon {
-	justify-self: center;
+.selection:hover {
+	background-color: #EFEFEF;
+}
+
+.selection-icon {
 	width: 25px;
 	height: auto;
 }

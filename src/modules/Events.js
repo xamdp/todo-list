@@ -2,7 +2,6 @@ import { createTodo } from "./factories/todoFactory.js";
 import { addTodo, getTodos } from "./Todo.js";
 import { clearDisplay, createDescriptionInput, displayTodos } from "./DOM.js";
 import { checkDateInput } from "./helpers.js";
-import { add } from "date-fns";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
@@ -107,16 +106,12 @@ export function initListeners() {
 		const addBtn = event.target.closest(".add-todo-btn");
 
 		if (!addBtn || !cardDiv.contains(addBtn)) return;
-		console.log("addbtn clicked", addBtn);
+		handleAddTodoBtnClick();
 	});
 
 	document
 		.querySelector(".show-modal")
 		.addEventListener("click", handleAddTodoBtnClick);
-
-	// document
-	// 	.querySelector(".add-todo-btn")
-	// 	.addEventListener("click", handleAddTodoBtnClick);
 
 	document
 		.querySelector("#cancelBtn")
