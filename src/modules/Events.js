@@ -7,8 +7,8 @@ function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
 	modal.classList.toggle("active");
 
-	const addBtnDiv = document.querySelector(".card-div");
-	addBtnDiv.classList.toggle("hidden");
+	// const addBtnDiv = document.querySelector(".card-div");
+	// addBtnDiv.classList.toggle("hidden");
 }
 
 function closeTodoModal() {
@@ -16,8 +16,8 @@ function closeTodoModal() {
 	const modal = document.getElementById("todo-modal");
 	modal.classList.toggle("active");
 
-	const addBtnDiv = document.querySelector(".card-div");
-	addBtnDiv.classList.remove("hidden");
+	// const addBtnDiv = document.querySelector(".card-div");
+	// addBtnDiv.classList.remove("hidden");
 	// addBtnDiv.classList.toggle("active");
 
 	// hide datepicker-input, ** it seems, i don't need to hide this
@@ -101,13 +101,13 @@ function displaySelectedPriority(event) {
 }
 
 export function initListeners() {
-	const cardDiv = document.querySelector(".card-div");
-	cardDiv.addEventListener("click", (event) => {
-		const addBtn = event.target.closest(".add-todo-btn");
-
-		if (!addBtn || !cardDiv.contains(addBtn)) return;
-		handleAddTodoBtnClick();
-	});
+	// const cardDiv = document.querySelector(".card-div");
+	// cardDiv.addEventListener("click", (event) => {
+	// 	const addBtn = event.target.closest(".add-todo-btn");
+	//
+	// 	if (!addBtn || !cardDiv.contains(addBtn)) return;
+	// 	handleAddTodoBtnClick();
+	// });
 
 	document
 		.querySelector(".show-modal")

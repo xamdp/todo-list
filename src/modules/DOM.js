@@ -76,8 +76,8 @@ export function TodosContainer() {
 
 	const form = createTodoForm();
 	todosContainer.append(form);
-	const card = addTodoCard();
-	todosContainer.append(card);
+	// const card = addTodoCard();
+	// todosContainer.append(card);
 }
 
 function addTodoCard() {
@@ -104,6 +104,7 @@ export function hideAddTodoCard() {
 	const cardDiv = document.querySelector(".card-div");
 	const todosList = document.querySelector(".todos-list");
 	console.log("are they same?", cardDiv === todosList);
+	// maybe i'll just hide for now the addCardDiv
 	// cardDiv.replaceChildren();
 }
 

@@ -27,7 +27,7 @@ function initializeTodo() {
 	Header();
 	MainContent();
 	TodosContainer();
-	isTodosExist();
+	// isTodosExist();
 }
 
 initializeTodo();
