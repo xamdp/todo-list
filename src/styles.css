@@ -141,6 +141,8 @@ body {
 
 .todo-container {
 	display: flex;
+	border: 2px solid #efefef;
+	border-radius: 8px;
 }
 
 .todo {
@@ -149,6 +151,19 @@ body {
 	flex-direction: column;
 }
 
+.todo-tags {
+	display: flex;
+	padding: 10px;
+}
+
+.todo-tags span {
+	padding: 10px;
+}
+
+.todo-tags p {
+	padding: 10px;
+	margin: 0;
+}
 
 /* dialog { */
 /* 	display: flex; */

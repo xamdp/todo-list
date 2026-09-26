@@ -126,13 +126,18 @@ export function displayTodos(todos) {
 		const description = document.createElement("p");
 		description.textContent = todo.description;
 
+		const tags = document.createElement("div");
+		tags.className = "todo-tags";
+
 		const date = document.createElement("span");
 		date.textContent = todo.dueDate;
 
 		const priority = document.createElement("p");
 		priority.textContent = todo.priority;
 
-		actionsContainer.append(title, description, date, priority);
+		tags.append(date, priority);
+
+		actionsContainer.append(title, description, tags);
 		todoContainer.append(checkbox, actionsContainer);
 		document.querySelector(".todos-list").append(todoContainer);
 	});
