@@ -1,3 +1,5 @@
+// maybe DOM.js should hold functions that is required in initial load of page
+
 import DescriptionIcon from "../asset/icons/description.svg";
 import DateIcon from "../asset/icons/date.svg";
 import PriorityIcon from "../asset/icons/priority.svg";
@@ -9,6 +11,11 @@ import {
 	addTodoSelection,
 	viewTodosSelection,
 } from "./components/SidebarComponent.js";
+import {
+	todoButtons,
+	todoCheckbox,
+	todoDetail,
+} from "./components/TodoComponent.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -108,37 +115,17 @@ export function hideAddTodoCard() {
 	// cardDiv.replaceChildren();
 }
 
+// i might also transfer this to a component
 export function displayTodos(todos) {
 	todos.forEach((todo) => {
 		const todoContainer = document.createElement("div");
 		todoContainer.className = "todo-container";
 
-		const checkbox = document.createElement("input");
-		checkbox.className = "todo-checkbox";
-		checkbox.type = "checkbox";
+		const checkbox = todoCheckbox();
+		const actionsContainer = todoDetail(todo);
+		const todoBtns = todoButtons();
 
-		const actionsContainer = document.createElement("div");
-		actionsContainer.className = "todo";
-
-		const title = document.createElement("p");
-		title.textContent = todo.title;
-
-		const description = document.createElement("p");
-		description.textContent = todo.description;
-
-		const tags = document.createElement("div");
-		tags.className = "todo-tags";
-
-		const date = document.createElement("span");
-		date.textContent = todo.dueDate;
-
-		const priority = document.createElement("p");
-		priority.textContent = todo.priority;
-
-		tags.append(date, priority);
-
-		actionsContainer.append(title, description, tags);
-		todoContainer.append(checkbox, actionsContainer);
+		todoContainer.append(checkbox, actionsContainer, todoBtns);
 		document.querySelector(".todos-list").append(todoContainer);
 	});
 }
