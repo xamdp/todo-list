@@ -12,7 +12,6 @@ import { initListeners } from "./modules/Events.js";
 import { getTodos } from "./modules/Todo.js";
 import { createProject } from "./modules/Project.js";
 import { createTodo } from "./modules/factories/todoFactory.js";
-import { isTodosExist } from "./modules/helpers.js";
 
 // based on my previous restaurant project, I was creating god object
 // which is bad, because it takes too many responsibility
