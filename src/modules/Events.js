@@ -66,6 +66,17 @@ function handleAddTodo() {
 	displayTodos(dataToDisplay);
 }
 
+function handleEditTodo() {
+	// how should i get the todo id, uponn clicking edit btn
+	// i think i need to add a data-id in .todo div
+	const userInput = {
+		title: title,
+		description: description,
+		dueDate: dueDate,
+		priority: priority,
+	};
+}
+
 function descriptionBtnToggle() {
 	if (document.querySelector("#desc-input")) return;
 	createDescriptionInput();
@@ -141,4 +152,8 @@ export function initListeners() {
 	document.querySelectorAll(".priority-select").forEach((priority) => {
 		priority.addEventListener("click", displaySelectedPriority);
 	});
+
+	// document
+	// 	.querySelector(".edit-btn")
+	// 	.addEventListener("click", handleEditTodo);
 }

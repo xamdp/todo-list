@@ -27,6 +27,7 @@ function todoTags(todo) {
 export function todoDetail(todo) {
 	const actionsContainer = document.createElement("div");
 	actionsContainer.className = "todo";
+	actionsContainer.dataset.id = todo.id;
 
 	const title = document.createElement("p");
 	title.textContent = todo.title;
