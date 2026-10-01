@@ -10,6 +10,7 @@ import PriorityFlag from "../asset/icons/flag.svg";
 import {
 	addTodoSelection,
 	viewTodosSelection,
+	viewProjectsSelection,
 } from "./components/SidebarComponent.js";
 import {
 	todoButtons,
@@ -50,8 +51,9 @@ function MenuSidebar() {
 
 	const addTodoBtn = addTodoSelection();
 	const viewTodosBtn = viewTodosSelection();
+	const viewProjectsBtn = viewProjectsSelection();
 
-	menu.append(addTodoBtn, viewTodosBtn);
+	menu.append(addTodoBtn, viewTodosBtn, viewProjectsBtn);
 	menuSidebar.prepend(menuTitle, menu);
 	return menuSidebar;
 }
@@ -117,6 +119,7 @@ export function hideAddTodoCard() {
 
 // i might also transfer this to a component
 export function displayTodos(todos) {
+	if (!todos) return;
 	todos.forEach((todo) => {
 		const todoContainer = document.createElement("div");
 		todoContainer.className = "todo-container";

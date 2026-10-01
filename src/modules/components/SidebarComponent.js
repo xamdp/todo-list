@@ -1,5 +1,6 @@
 import TodoMenuIcon from "../../asset/icons/menu-todo.svg";
 import TaskListIcon from "../../asset/icons/task-list.svg";
+import ProjectBoxIcon from "../../asset/icons/box.svg";
 export function addTodoSelection() {
 	const addTodoBtn = document.createElement("button");
 	addTodoBtn.type = "button";
@@ -30,4 +31,20 @@ export function viewTodosSelection() {
 
 	viewTodosBtn.append(icon, span);
 	return viewTodosBtn;
+}
+
+export function viewProjectsSelection() {
+	const viewProjectBtn = document.createElement("button");
+	viewProjectBtn.type = "button";
+	viewProjectBtn.classList.add("selection");
+
+	const icon = document.createElement("div");
+	icon.innerHTML = ProjectBoxIcon;
+	icon.querySelector("svg").classList.add("selection-icon");
+
+	const span = document.createElement("span");
+	span.textContent = "Projects";
+
+	viewProjectBtn.append(icon, span);
+	return viewProjectBtn;
 }

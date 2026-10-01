@@ -95,6 +95,7 @@ body {
 	border-radius: 8px;
 	font: inherit;
 	width: 100%;
+	cursor: pointer;
 }
 
 .selection:hover {
@@ -147,6 +148,7 @@ body {
 	max-width: 860px;
 	font-size: 1rem;
 	padding: 1rem;
+	cursor: pointer;
 }
 
 .todo-container:hover {
