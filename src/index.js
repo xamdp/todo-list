@@ -9,7 +9,7 @@ import {
 	TodosContainer,
 } from "./modules/DOM.js";
 import { initListeners } from "./modules/Events.js";
-import { getTodos } from "./modules/Todo.js";
+import { getTodos, defaultTodos } from "./modules/Todo.js";
 import { createProject, saveProject } from "./modules/Project.js";
 import { createTodo } from "./modules/factories/todoFactory.js";
 
@@ -33,17 +33,17 @@ initializeTodo();
 initListeners();
 initializeTodoList();
 
-const work = createProject("Work");
-const job = createTodo({
-	title: "find a job",
-	description: "my job",
-	dueDate: "2026-09-22",
-	priority: "Priority 1",
-});
+// const work = createProject("Work");
+// const job = createTodo({
+// 	title: "find a job",
+// 	description: "my job",
+// 	dueDate: "2026-09-22",
+// 	priority: "Priority 1",
+// });
 
-console.log(work); // this now contains a project id, via createProject
+// console.log(work); // this now contains a project id, via createProject
 
-work.addTodo(job);
-console.log(work.getTodos());
+// work.addTodo(job);
+// console.log(work.getTodos());
 
-saveProject(work);
+// saveProject(work);
