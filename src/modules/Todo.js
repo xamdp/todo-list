@@ -1,15 +1,16 @@
-let defaultTodos = []; // this is the default project
+export let defaultTodos = []; // this is the default project
 
-function addTodo(todo) {
-	defaultTodos.push(todo);
-	localStorage.setItem("default", JSON.stringify(defaultTodos));
-	// console.log(defaultTodos);
+export function addTodo(todo) {
+	const todos = getTodos();
+	console.log(todos);
+	todos.push(todo); // pushing todo to array, and refreshing the page
+	localStorage.setItem("default", JSON.stringify(todos));
 }
 
 // get the single todo based on id
 function getTodo(id) { }
 
-function deleteTodo(id) { }
+export function deleteTodo(id) { }
 
 // basically this works, i just need to link it to edit button
 export function editTodo(id) {
@@ -27,16 +28,12 @@ export function editTodo(id) {
 	localStorage.setItem("default", JSON.stringify(todos));
 }
 
-function getTodos() {
+export function getTodos() {
 	if (localStorage.getItem("default") === null) {
 		localStorage.setItem("default", "[]");
-		localStorage.getItem("default");
-		return;
 	}
 
 	const raw = localStorage.getItem("default");
 	const todos = JSON.parse(raw);
 	return todos;
 }
-
-export { addTodo, deleteTodo, getTodos };
