@@ -24,7 +24,20 @@ export function createProject(name = "default") {
 
 export function saveProject(project) {
 	// i don't if should i store it in projects list, the createdproject object already contains an id, so iguess yes.
-	localStorage.setItem("projects", project.id);
+	// i need to get projects first and write it
+	const projects = getProjects();
+	console.log(projects);
+	projects.push(project);
+
+	localStorage.setItem("projects", JSON.stringify(projects)); // bru, so it should be the array, not the individual object
 }
 
-export function getProjects() { }
+export function getProjects() {
+	if (localStorage.getItem("projects") === null) {
+		localStorage.setItem("projects", JSON.stringify([]));
+	}
+
+	const raw = localStorage.getItem("projects");
+	const projects = JSON.parse(raw);
+	return projects;
+}

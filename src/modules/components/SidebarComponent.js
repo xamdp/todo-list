@@ -4,6 +4,9 @@ import ProjectBoxIcon from "../../asset/icons/box.svg";
 import CreateProjectIcon from "../../asset/icons/create-project.svg";
 import ProjectSelectIcon from "../../asset/icons/project-select.svg";
 
+import CancelIcon from "../../asset/icons/cancel.svg";
+import ArrowUpIcon from "../../asset/icons/arrow-up.svg";
+
 export function addTodoSelection() {
 	const addTodoBtn = document.createElement("button");
 	addTodoBtn.type = "button";
@@ -59,16 +62,27 @@ export function createProjectForm() {
 	const projectForm = document.createElement("form");
 	projectForm.className = "project-form";
 
+	const heading = document.createElement("h3");
+	heading.textContent = "Add Project";
+
 	const projectName = document.createElement("div");
 	projectName.className = "project-name";
 	const nameLabel = document.createElement("label");
-	nameLabel.textContent = "Project Name";
+	nameLabel.textContent = "Name";
 	const nameInput = document.createElement("input");
 	nameInput.className = "project-name-input";
 	projectName.append(nameLabel, nameInput);
 
-	projectForm.append(projectName);
-	dialog.append(projectForm);
+	const formBtns = document.createElement("div");
+	formBtns.className = "form-btns";
+
+	const cancelBtn = createCancelBtn();
+	const addBtn = createAddBtn();
+
+	formBtns.append(cancelBtn, addBtn);
+
+	projectForm.append(heading, projectName);
+	dialog.append(projectForm, formBtns);
 	return dialog;
 }
 
@@ -109,4 +123,24 @@ function projectDropdown() {
 	dropdown.append(firstProject);
 
 	return dropdown;
+}
+
+function createAddBtn() {
+	const addBtn = document.createElement("button");
+	addBtn.id = "projectAddBtn";
+	addBtn.className = "add-btn";
+	addBtn.type = "submit";
+	addBtn.innerHTML = ArrowUpIcon;
+	addBtn.querySelector("svg").classList.add("arrow-up-icon");
+	return addBtn;
+}
+
+function createCancelBtn() {
+	const cancelBtn = document.createElement("button");
+	cancelBtn.id = "projectCancelBtn";
+	cancelBtn.className = "cancel-btn";
+	cancelBtn.type = "button";
+	cancelBtn.innerHTML = CancelIcon;
+	cancelBtn.querySelector("svg").classList.add("cancel-icon");
+	return cancelBtn;
 }

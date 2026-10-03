@@ -2,7 +2,7 @@ import { createTodo } from "./factories/todoFactory.js";
 import { addTodo, getTodos } from "./Todo.js";
 import { clearDisplay, createDescriptionInput, displayTodos } from "./DOM.js";
 import { checkDateInput } from "./helpers.js";
-import { createProject } from "./Project.js";
+import { createProject, saveProject } from "./Project.js";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
@@ -27,6 +27,11 @@ function closeTodoModal() {
 		return;
 	}
 	descInput.remove();
+}
+
+function closeProjectModal() {
+	const modal = document.getElementById("project-modal");
+	modal.close();
 }
 
 function resetForm() {
@@ -123,6 +128,13 @@ function handleCreateProject(event) {
 	}
 }
 
+function handleAddProject(e) {
+	const projectName = document.querySelector(".project-name-input").value;
+	const project = createProject(projectName);
+	saveProject(project);
+	console.log("hi", project);
+}
+
 export function initListeners() {
 	// const cardDiv = document.querySelector(".card-div");
 	// cardDiv.addEventListener("click", (event) => {
@@ -144,6 +156,14 @@ export function initListeners() {
 		event.preventDefault();
 		handleAddTodo();
 	});
+
+	document
+		.querySelector("#projectAddBtn")
+		.addEventListener("click", handleAddProject);
+
+	document
+		.querySelector("#projectCancelBtn")
+		.addEventListener("click", closeProjectModal);
 
 	document
 		.querySelector(".todo-desc")
