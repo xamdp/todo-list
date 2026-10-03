@@ -107,24 +107,93 @@ body {
 	height: auto;
 }
 
+.projects {
+	position: relative;
+}
+
+.project-dropdown {
+	position: absolute;
+	left: 20px;
+	top: 45px;
+	width: 280px;
+	margin: 0;
+	cursor: pointer;
+	border: none;
+	gap: 4px;
+	padding: 0;
+	border-radius: 6px;
+	background-color: var(--primary-bg);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-icon {
+	align-self: center;
+	width: 20px;
+	height: auto;
+}
+
+.project-select {
+	display: flex;
+	gap: 5px;
+	padding: 10px 16px;
+	cursor: pointer;
+	transition: background 0.2s;
+	color: var(--text);
+	cursor: pointer;
+}
+
+.project-select:hover {
+	background-color: #EFEFEF;
+}
+
+.project-select p {
+	margin: 0;
+}
+
+.create-project-btn {
+	position: relative;
+}
+
+#project-modal[open] {
+	display: flex;
+	position: absolute;
+	padding: 1rem;
+	width: 500px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+}
+
+/* if i decide to add other fields inside the form. */
+.project-form {
+	display: flex;
+	gap: 5px;
+	font-size: 1rem;
+}
+
+.project-name label {
+	font-weight: 600;
+}
+
+.project-name-input {
+	padding: 6px 12px;
+	font-size: 0.9em;
+}
+
+.project-form .project-name {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#project-modal::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(4px);
+}
+
 .main-content {
 	display: flex;
 	flex-direction: column;
 }
-
-/* .todos-container { */
-/* 	display: flex; */
-/* 	flex-direction: column; */
-/* } */
-
-/* dialog { */
-/* 	max-width: 90%; */
-/* 	max-height: 80vh; */
-/* 	width: 500px; */
-/* 	padding: 2rem; */
-/* 	border-radius: 8px; */
-/* 	border: 1px solid #ccc; */
-/* } */
 
 /* diaglog relative to .todos-container */
 .todos-container {
@@ -267,7 +336,7 @@ body {
 /* 	border: 1px solid #ccc; */
 /* } */
 
-dialog.active {
+#todo-modal[open] {
 	display: flex;
 	position: absolute;
 	top: 10%;
@@ -278,12 +347,13 @@ dialog.active {
 	padding: 8px;
 	border-radius: 10px;
 	border: 1px solid #ccc;
+	outline: none;
 }
 
 
-dialog::backdrop {
+#todo-modal::backdrop {
 	background: rgba(0, 0, 0, 0.5);
-	/*semi-transparent black*/
+	backdrop-filter: blur(4px);
 }
 
 .card-div {
@@ -444,11 +514,9 @@ dialog::backdrop {
 }
 
 .priorities-dropdown {
-	position: absolute;
-	left: 0;
-	top: 30px;
+	position-area: bottom span-right;
 	width: 120px;
-	margin: 0;
+	margin: 4px 0 0 0;
 	cursor: pointer;
 	border: none;
 	gap: 4px;

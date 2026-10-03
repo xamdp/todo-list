@@ -3,7 +3,7 @@
 // 1 key for default, which stores the todos created not associated with any projects
 // and of course all the keys listed in projects.
 
-export function createProject(name) {
+export function createProject(name = "default") {
 	let todos = [];
 	return {
 		id: crypto.randomUUID(),
