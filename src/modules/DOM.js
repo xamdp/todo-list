@@ -11,6 +11,8 @@ import {
 	addTodoSelection,
 	viewTodosSelection,
 	viewProjectsSelection,
+	createProjectSelection,
+	createProjectForm,
 } from "./components/SidebarComponent.js";
 import {
 	todoButtons,
@@ -51,9 +53,17 @@ function MenuSidebar() {
 
 	const addTodoBtn = addTodoSelection();
 	const viewTodosBtn = viewTodosSelection();
+	const createProjectBtn = createProjectSelection();
+	const projectModal = createProjectForm();
 	const viewProjectsBtn = viewProjectsSelection();
 
-	menu.append(addTodoBtn, viewTodosBtn, viewProjectsBtn);
+	menu.append(
+		addTodoBtn,
+		viewTodosBtn,
+		createProjectBtn,
+		projectModal,
+		viewProjectsBtn,
+	);
 	menuSidebar.prepend(menuTitle, menu);
 	return menuSidebar;
 }
@@ -234,6 +244,7 @@ function createPriorityField() {
 	// in priority, i need to create a dropdown selection up to 4 priority levels
 	const priority = document.createElement("button");
 	priority.type = "button";
+	priority.setAttribute("popovertarget", "priority-choices");
 	priority.className = "todo-priority";
 	const priorityText = document.createElement("p");
 	priorityText.textContent = "Priority";
@@ -247,6 +258,8 @@ function createPriorityField() {
 function createPriorityDropdown() {
 	const priorities = document.createElement("div");
 	priorities.className = "priorities-dropdown";
+	priorities.id = "priority-choices";
+	priorities.setAttribute("popover", "auto");
 
 	const firstPrio = document.createElement("div");
 	firstPrio.className = "priority-select";
@@ -284,7 +297,6 @@ function createPriorityDropdown() {
 	text4.textContent = "Priority 4";
 	fourthPrio.append(flag4, text4);
 	priorities.append(firstPrio, secondPrio, thirdPrio, fourthPrio);
-	priorities.classList.toggle("hidden");
 	return priorities;
 }
 
@@ -324,12 +336,4 @@ export function createDescriptionInput() {
 
 export function clearDisplay() {
 	document.querySelector(".todos-list").replaceChildren();
-}
-
-export function createTodoItem(todo) {
-	// returns <div> with checkbox, title, etc
-}
-
-export function render(container, htmlTag) {
-	container.append(htmlTag);
 }
