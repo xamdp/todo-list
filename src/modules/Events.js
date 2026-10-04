@@ -1,8 +1,13 @@
 import { createTodo } from "./factories/todoFactory.js";
 import { addTodo, getTodos } from "./Todo.js";
-import { clearDisplay, createDescriptionInput, displayTodos } from "./DOM.js";
+import {
+	clearDisplay,
+	createDescriptionInput,
+	displaySelectedProject,
+	displayTodos,
+} from "./DOM.js";
 import { checkDateInput } from "./helpers.js";
-import { createProject, saveProject } from "./Project.js";
+import { createProject, getProjects, saveProject } from "./Project.js";
 
 function handleAddTodoBtnClick() {
 	const modal = document.getElementById("todo-modal");
@@ -45,6 +50,20 @@ function resetForm() {
 	priorityText.classList.toggle("hidden");
 }
 
+function selectedProject(event) {
+	const selected = event.currentTarget.dataset.id;
+
+	const projects = getProjects();
+	const matchProject = projects.find((project) => project.id === selected);
+	if (matchProject) {
+		console.log(matchProject.name);
+		displaySelectedProject(matchProject);
+		return matchProject;
+	} else {
+		console.log(`No project exist with the id: ${selected}`);
+	}
+}
+
 function handleAddTodo() {
 	const userInput = {
 		title: document.querySelector("#title-input").value,
@@ -53,12 +72,12 @@ function handleAddTodo() {
 		priority: document.querySelector(".priority-text").textContent,
 	};
 	// i need a way to read the current selected project and pass that as argument for createTodo
-	const project = createProject(); // i should not run createProject everytime I create a todo
+	// const project = createProject(); // i should not run createProject everytime I create a todo
 	const newTodo = createTodo(userInput);
-	project.addTodo(newTodo);
-	addTodo(newTodo, project.name); // this works for now, because I am using the default project
+	// const project = selectedProject();
+	addTodo(newTodo); // this works for now, because I am using the default project, here to, i need to pass the project.id
 	resetForm();
-	const dataToDisplay = getTodos(project.name);
+	const dataToDisplay = getTodos(); // need to pass here the project.id
 	clearDisplay();
 	displayTodos(dataToDisplay);
 }
@@ -90,7 +109,8 @@ function dueDateBtnToggle(event) {
 
 function projectsBtnToggle() {
 	const projectDropwdown = document.querySelector(".project-dropdown");
-	projectDropwdown.classList.toggle("hidden");
+	console.log("hi");
+	// projectDropwdown.classList.toggle("hidden");
 }
 
 function priorityBtnToggle(e) {
@@ -133,6 +153,7 @@ function handleAddProject(e) {
 	const project = createProject(projectName);
 	saveProject(project);
 	console.log("hi", project);
+	// i need to display the project and its todos somehow here
 }
 
 export function initListeners() {
@@ -189,9 +210,13 @@ export function initListeners() {
 		.querySelector(".create-project-btn")
 		.addEventListener("click", handleCreateProject);
 
-	document
-		.querySelector(".projects")
-		.addEventListener("click", projectsBtnToggle);
+	document.querySelectorAll(".project-select").forEach((project) => {
+		project.addEventListener("click", selectedProject);
+	});
+
+	// document
+	// 	.querySelector(".projects")
+	// 	.addEventListener("click", projectsBtnToggle);
 
 	// document
 	// 	.querySelector(".edit-btn")

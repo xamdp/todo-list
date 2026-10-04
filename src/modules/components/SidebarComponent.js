@@ -6,6 +6,7 @@ import ProjectSelectIcon from "../../asset/icons/project-select.svg";
 
 import CancelIcon from "../../asset/icons/cancel.svg";
 import ArrowUpIcon from "../../asset/icons/arrow-up.svg";
+import { getProjects } from "../Project.js";
 
 export function addTodoSelection() {
 	const addTodoBtn = document.createElement("button");
@@ -90,6 +91,7 @@ export function createProjectForm() {
 export function viewProjectsSelection() {
 	const viewProjectBtn = document.createElement("button");
 	viewProjectBtn.type = "button";
+	viewProjectBtn.setAttribute("popovertarget", "project-choices");
 	viewProjectBtn.classList.add("selection", "projects");
 
 	const icon = document.createElement("div");
@@ -99,28 +101,36 @@ export function viewProjectsSelection() {
 	const span = document.createElement("span");
 	span.textContent = "Projects";
 
-	const dropdown = projectDropdown();
+	const projects = getProjects();
+
+	const dropdown = projectDropdown(projects);
 	viewProjectBtn.append(icon, span, dropdown);
 
 	return viewProjectBtn;
 }
 
 // i think i need to pass the created project id and name in here, so i don't need to manually create them.
-function projectDropdown() {
+function projectDropdown(projects) {
 	const dropdown = document.createElement("div");
 	dropdown.className = "project-dropdown";
-	dropdown.classList.toggle("hidden");
+	dropdown.id = "project-choices";
+	dropdown.setAttribute("popover", "auto");
 
-	const firstProject = document.createElement("div");
-	firstProject.className = "project-select";
-	const icon = document.createElement("div");
-	icon.innerHTML = ProjectSelectIcon;
-	icon.querySelector("svg").classList.add("project-icon");
-	const text = document.createElement("p");
-	text.textContent = "Work";
-	firstProject.append(icon, text);
+	projects.forEach((project) => {
+		const projectSelect = document.createElement("div");
+		projectSelect.className = "project-select";
+		projectSelect.dataset.id = project.id;
+		const icon = document.createElement("div");
+		icon.innerHTML = ProjectSelectIcon;
+		icon.querySelector("svg").classList.add("project-icon");
+		const text = document.createElement("p");
+		const name =
+			project.name.charAt(0).toUpperCase() + project.name.slice(1); // might create a function for this, capitalize first letter
+		text.textContent = name;
+		projectSelect.append(icon, text);
 
-	dropdown.append(firstProject);
+		dropdown.append(projectSelect);
+	});
 
 	return dropdown;
 }

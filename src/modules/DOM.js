@@ -337,3 +337,16 @@ export function createDescriptionInput() {
 export function clearDisplay() {
 	document.querySelector(".todos-list").replaceChildren();
 }
+
+function projectHeading(project) {
+	const heading = document.createElement("header");
+	heading.className = "heading";
+	heading.textContent = project.name;
+	return heading;
+}
+
+export function displaySelectedProject(project) {
+	const header = projectHeading(project);
+	document.querySelector(".heading").replaceWith(header);
+	// document.querySelector(".content-wrapper").prepend(header);
+}

@@ -1,7 +1,7 @@
 export let defaultTodos = []; // this is the default project
 
 // i need to add a todo and a project.id, project.id is the key for getTodos
-export function addTodo(todo, project) {
+export function addTodo(todo, project = "default") {
 	const todos = getTodos(project);
 	console.log(todos);
 	todos.push(todo); // pushing todo to array, and refreshing the page

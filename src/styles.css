@@ -112,10 +112,9 @@ body {
 }
 
 .project-dropdown {
+	position-area: bottom span-right;
 	position: absolute;
-	left: 20px;
-	top: 45px;
-	width: 280px;
+	width: 300px;
 	margin: 0;
 	cursor: pointer;
 	border: none;
@@ -616,8 +615,6 @@ body {
 	border: none;
 	cursor: pointer;
 }
-
-
 
 .cancel-btn {
 	background-color: transparent;
