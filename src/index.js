@@ -21,6 +21,7 @@ function initializeTodoList() {
 	displayTodos(data);
 }
 
+// this shows the default todos
 function initializeTodo() {
 	Sidebar();
 	Header();

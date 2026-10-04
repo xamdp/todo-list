@@ -7,6 +7,7 @@ import CancelIcon from "../asset/icons/cancel.svg";
 import ArrowUpIcon from "../asset/icons/arrow-up.svg";
 import TodoIcon from "../asset/icons/todo.svg";
 import PriorityFlag from "../asset/icons/flag.svg";
+import ProjectIcon from "../asset/icons/folder.svg";
 import {
 	addTodoSelection,
 	viewTodosSelection,
@@ -19,6 +20,7 @@ import {
 	todoCheckbox,
 	todoDetail,
 } from "./components/TodoComponent.js";
+import { getProjects } from "./Project.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -161,10 +163,13 @@ export function createTodoForm() {
 	const dueDate = datePicker();
 	const priority = createPriorityField();
 	const priorities = createPriorityDropdown();
+	const project = createProjectField();
+	const projectList = createProjectDropdown();
 
 	priority.append(priorities);
+	project.append(projectList);
 
-	fieldsContainer.append(description, dueDate, priority);
+	fieldsContainer.append(description, dueDate, priority, project);
 	outerContainer.append(fieldsContainer);
 	todoForm.append(userInput, outerContainer);
 	dialog.append(todoForm);
@@ -240,6 +245,20 @@ function createDescriptionField() {
 	return description;
 }
 
+function createProjectField() {
+	const project = document.createElement("button");
+	project.type = "button";
+	project.className = "project-selection";
+	project.setAttribute("popovertarget", "projects-choices");
+	const projectText = document.createElement("p");
+	projectText.textContent = "Project";
+	const projectIcon = document.createElement("div");
+	projectIcon.innerHTML = ProjectIcon;
+	projectIcon.querySelector("svg").classList.add("folder-icon");
+	project.append(projectIcon, projectText);
+	return project;
+}
+
 function createPriorityField() {
 	// in priority, i need to create a dropdown selection up to 4 priority levels
 	const priority = document.createElement("button");
@@ -253,6 +272,29 @@ function createPriorityField() {
 	priorityIcon.querySelector("svg").classList.add("priority-icon");
 	priority.append(priorityIcon, priorityText);
 	return priority;
+}
+
+function createProjectDropdown() {
+	const projects = getProjects();
+	const projectList = document.createElement("div");
+	projectList.className = "projects-dropdown";
+	projectList.id = "projects-choices";
+	projectList.setAttribute("popover", "auto");
+
+	projects.forEach((project) => {
+		const selection = document.createElement("div");
+		selection.className = "select-project";
+		selection.dataset.id = project.id;
+		selection.dataset.name = project.name;
+		const icon = document.createElement("div");
+		icon.innerHTML = ProjectIcon;
+		icon.querySelector("svg").classList.add("select-project-icon");
+		const text = document.createElement("p");
+		text.textContent = project.name;
+		selection.append(icon, text);
+		projectList.append(selection);
+	});
+	return projectList;
 }
 
 function createPriorityDropdown() {
@@ -336,4 +378,17 @@ export function createDescriptionInput() {
 
 export function clearDisplay() {
 	document.querySelector(".todos-list").replaceChildren();
+}
+
+function projectHeading(project) {
+	const heading = document.createElement("header");
+	heading.className = "heading";
+	heading.textContent = project.name;
+	return heading;
+}
+
+export function displayProject(project) {
+	const header = projectHeading(project);
+	document.querySelector(".heading").replaceWith(header);
+	// document.querySelector(".content-wrapper").prepend(header);
 }

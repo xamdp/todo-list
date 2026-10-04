@@ -112,10 +112,9 @@ body {
 }
 
 .project-dropdown {
+	position-area: bottom span-right;
 	position: absolute;
-	left: 20px;
-	top: 45px;
-	width: 280px;
+	width: 300px;
 	margin: 0;
 	cursor: pointer;
 	border: none;
@@ -451,7 +450,8 @@ body {
 }
 
 .todo-desc,
-.todo-priority {
+.todo-priority,
+.project-selection {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	display: flex;
@@ -516,8 +516,22 @@ body {
 	color: #ccc;
 }
 
-.todo-priority {
+.todo-priority,
+.project-selection {
 	position: relative;
+}
+
+.projects-dropdown {
+	position-area: bottom span-right;
+	width: 120px;
+	margin: 4px 0 0 0;
+	cursor: pointer;
+	border: none;
+	gap: 4px;
+	padding: 0;
+	border-radius: 6px;
+	background-color: var(--primary-bg);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .priorities-dropdown {
@@ -533,7 +547,8 @@ body {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.priority-select {
+.priority-select,
+.select-project {
 	display: flex;
 	gap: 5px;
 	padding: 10px 16px;
@@ -542,14 +557,16 @@ body {
 	color: var(--text);
 }
 
-.priority-flag {
+.priority-flag,
+.select-project-icon {
 	display: block;
 	align-self: center;
 	width: auto;
 	height: 20px;
 }
 
-.priority-select p {
+.priority-select p,
+.select-project p {
 	flex-shrink: 0;
 	font-size: 16px;
 	font-weight: 400;
@@ -573,8 +590,13 @@ body {
 	background-color: var(--accent-bg);
 }
 
+.select-project:hover {
+	background-color: var(--accent-bg);
+}
+
 .todo-desc p,
-.todo-priority p {
+.todo-priority p,
+.project-selection p {
 	margin: 0;
 	align-self: center;
 	color: #ccc;
@@ -582,7 +604,8 @@ body {
 
 .desc-icon,
 .priority-icon,
-.calendar-icon {
+.calendar-icon,
+.folder-icon {
 	display: block;
 	align-self: center;
 	width: auto;
@@ -616,8 +639,6 @@ body {
 	border: none;
 	cursor: pointer;
 }
-
-
 
 .cancel-btn {
 	background-color: transparent;
