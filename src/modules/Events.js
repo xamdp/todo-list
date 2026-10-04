@@ -3,10 +3,10 @@ import { addTodo, getTodos } from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
-	displaySelectedProject,
+	displayProject,
 	displayTodos,
 } from "./DOM.js";
-import { checkDateInput } from "./helpers.js";
+import { checkDateInput, getProjectId } from "./helpers.js";
 import { createProject, getProjects, saveProject } from "./Project.js";
 
 function handleAddTodoBtnClick() {
@@ -57,7 +57,7 @@ function selectedProject(event) {
 	const matchProject = projects.find((project) => project.id === selected);
 	if (matchProject) {
 		console.log(matchProject.name);
-		displaySelectedProject(matchProject);
+		displayProject(matchProject);
 		return matchProject;
 	} else {
 		console.log(`No project exist with the id: ${selected}`);
@@ -74,10 +74,10 @@ function handleAddTodo() {
 	// i need a way to read the current selected project and pass that as argument for createTodo
 	// const project = createProject(); // i should not run createProject everytime I create a todo
 	const newTodo = createTodo(userInput);
-	// const project = selectedProject();
-	addTodo(newTodo); // this works for now, because I am using the default project, here to, i need to pass the project.id
+	const projectId = getProjectId();
+	addTodo(newTodo, projectId); // this works for now, because I am using the default project, here to, i need to pass the project.id
 	resetForm();
-	const dataToDisplay = getTodos(); // need to pass here the project.id
+	const dataToDisplay = getTodos(projectId); // need to pass here the project.id
 	clearDisplay();
 	displayTodos(dataToDisplay);
 }
@@ -136,6 +136,19 @@ function displaySelectedPriority(event) {
 	const selectedPriority = event.currentTarget.querySelector("p").textContent;
 	priorityText.textContent = selectedPriority;
 	priorityText.classList.remove("hidden");
+}
+
+function displaySelectedProject(event) {
+	const projectsDropdown = document.querySelector(".projects-dropdown");
+	const selectedProjectId = event.currentTarget.dataset.id;
+	const selectedProjectName = event.currentTarget.dataset.name;
+	let projectSelectionBtn = document.querySelector(".project-selection");
+	let projectSelectionText = document
+		.querySelector(".project-selection")
+		.querySelector("p");
+	projectSelectionText.textContent = selectedProjectName;
+	projectSelectionBtn.setAttribute("data-id", selectedProjectId);
+	projectsDropdown.hidePopover();
 }
 
 function handleCreateProject(event) {
@@ -204,6 +217,10 @@ export function initListeners() {
 
 	document.querySelectorAll(".priority-select").forEach((priority) => {
 		priority.addEventListener("click", displaySelectedPriority);
+	});
+
+	document.querySelectorAll(".select-project").forEach((project) => {
+		project.addEventListener("click", displaySelectedProject);
 	});
 
 	document

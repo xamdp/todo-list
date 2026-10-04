@@ -14,3 +14,9 @@ export function isTodosExist() {
 	const cardDiv = document.querySelector(".card-div");
 	if (cardDiv.hasChildNodes()) hideAddTodoCard();
 }
+
+export function getProjectId() {
+	const projectFieldBtn = document.querySelector(".project-selection");
+	const projectId = projectFieldBtn.dataset.id;
+	return projectId;
+}
