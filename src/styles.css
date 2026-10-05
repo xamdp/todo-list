@@ -450,8 +450,7 @@ body {
 }
 
 .todo-desc,
-.todo-priority,
-.project-selection {
+.todo-priority {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	display: flex;
@@ -459,6 +458,28 @@ body {
 	justify-content: center;
 	text-align: center;
 	padding: 3px 4px;
+	background-color: var(--primary-bg);
+	color: #666666;
+	cursor: pointer;
+}
+
+
+.project-field-wrapper {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.project-selection {
+	height: 100%;
+	flex: 1;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	display: flex;
+	gap: 5px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 	background-color: var(--primary-bg);
 	color: #666666;
 	cursor: pointer;
@@ -523,7 +544,7 @@ body {
 
 .projects-dropdown {
 	position-area: bottom span-right;
-	width: 120px;
+	width: 200px;
 	margin: 4px 0 0 0;
 	cursor: pointer;
 	border: none;
@@ -547,7 +568,15 @@ body {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.priority-select,
+.priority-select {
+	display: flex;
+	gap: 5px;
+	padding: 10px 16px;
+	cursor: pointer;
+	transition: background 0.2s;
+	color: var(--text);
+}
+
 .select-project {
 	display: flex;
 	gap: 5px;
@@ -557,6 +586,15 @@ body {
 	color: var(--text);
 }
 
+.select-project p {
+	flex-shrink: 0;
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--text) !important;
+	margin: 0;
+}
+
+
 .priority-flag,
 .select-project-icon {
 	display: block;
@@ -565,13 +603,20 @@ body {
 	height: 20px;
 }
 
-.priority-select p,
-.select-project p {
+.priority-select p {
 	flex-shrink: 0;
 	font-size: 16px;
 	font-weight: 400;
 	color: var(--text) !important;
+	margin: 0;
+}
 
+.project-select p {
+	flex-shrink: 0;
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--text) !important;
+	margin: 0;
 }
 
 .priority-text {
@@ -604,7 +649,13 @@ body {
 
 .desc-icon,
 .priority-icon,
-.calendar-icon,
+.calendar-icon {
+	display: block;
+	align-self: center;
+	width: auto;
+	height: 20px;
+}
+
 .folder-icon {
 	display: block;
 	align-self: center;
