@@ -136,8 +136,7 @@ export function displayTodos(todos) {
 
 		const checkbox = todoCheckbox();
 		const actionsContainer = todoDetail(todo);
-		const todoBtns = todoButtons();
-
+		const todoBtns = todoButtons(todo);
 		todoContainer.append(checkbox, actionsContainer, todoBtns);
 		document.querySelector(".todos-list").append(todoContainer);
 	});

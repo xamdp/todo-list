@@ -20,6 +20,10 @@ function todoTags(todo) {
 	priority.textContent = todo.priority;
 	priority.className = "priority";
 
+	// const project = document.createElement("p");
+	// project.textContent = project.name;
+	// project.dataset.projectId = project.id;
+
 	tags.append(date, priority);
 	return tags;
 }
@@ -42,11 +46,11 @@ export function todoDetail(todo) {
 	return actionsContainer;
 }
 
-export function todoButtons() {
+export function todoButtons(todo) {
 	const buttons = document.createElement("div");
 	buttons.className = "btn-group";
 	const editBtn = editButton();
-	const delBtn = deleteButton();
+	const delBtn = deleteButton(todo);
 	buttons.append(editBtn, delBtn);
 	return buttons;
 }
@@ -62,10 +66,12 @@ function editButton() {
 	return editBtn;
 }
 
-function deleteButton() {
+export function deleteButton(todo) {
 	const delBtn = document.createElement("button");
 	delBtn.type = "button";
 	delBtn.className = "del-btn";
+	delBtn.dataset.id = todo.id;
+	delBtn.dataset.projectId = todo.project.projectId;
 	const icon = document.createElement("div");
 	icon.innerHTML = DeleteIcon;
 	icon.querySelector("svg").classList.add("delete-icon");
