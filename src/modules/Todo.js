@@ -8,10 +8,20 @@ export function addTodo(todo, project = "default") {
 	localStorage.setItem(project, JSON.stringify(todos));
 }
 
-// get the single todo based on id
+// get the single todo based on id, this would work for searching
 function getTodo(id) { }
 
-export function deleteTodo(id) { }
+export function deleteTodo(project, id) {
+	const todos = JSON.parse(localStorage.getItem(project));
+	const toDeleteTodo = todos.find((todo) => todo.id === id);
+	const index = todos.findIndex((todo) => todo.id === toDeleteTodo.id);
+	if (index > -1) {
+		todos.splice(index, 1);
+		localStorage.setItem(project, JSON.stringify(todos));
+	} else {
+		console.log("delete failed", index);
+	}
+}
 
 // basically this works, i just need to link it to edit button
 export function editTodo(id) {

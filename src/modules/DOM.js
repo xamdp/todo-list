@@ -73,9 +73,7 @@ function MenuSidebar() {
 export function Header() {
 	const header = document.createElement("header");
 	header.className = "heading";
-
 	header.textContent = "Todos";
-
 	document.querySelector(".content-wrapper").prepend(header);
 }
 
@@ -138,8 +136,7 @@ export function displayTodos(todos) {
 
 		const checkbox = todoCheckbox();
 		const actionsContainer = todoDetail(todo);
-		const todoBtns = todoButtons();
-
+		const todoBtns = todoButtons(todo);
 		todoContainer.append(checkbox, actionsContainer, todoBtns);
 		document.querySelector(".todos-list").append(todoContainer);
 	});
@@ -163,13 +160,14 @@ export function createTodoForm() {
 	const dueDate = datePicker();
 	const priority = createPriorityField();
 	const priorities = createPriorityDropdown();
+	const projectFieldWrapper = document.createElement("project-field-wrapper");
 	const project = createProjectField();
 	const projectList = createProjectDropdown();
 
 	priority.append(priorities);
-	project.append(projectList);
+	projectFieldWrapper.append(project, projectList);
 
-	fieldsContainer.append(description, dueDate, priority, project);
+	fieldsContainer.append(description, dueDate, priority, projectFieldWrapper);
 	outerContainer.append(fieldsContainer);
 	todoForm.append(userInput, outerContainer);
 	dialog.append(todoForm);
@@ -274,6 +272,7 @@ function createPriorityField() {
 	return priority;
 }
 
+// dropdown in todo form of project field
 function createProjectDropdown() {
 	const projects = getProjects();
 	const projectList = document.createElement("div");
@@ -295,6 +294,21 @@ function createProjectDropdown() {
 		projectList.append(selection);
 	});
 	return projectList;
+}
+
+export function renderFieldProjectSelect(project) {
+	const selection = document.createElement("div");
+	selection.className = "select-project";
+	selection.dataset.id = project.id;
+	selection.dataset.name = project.name;
+
+	const icon = document.createElement("div");
+	icon.innerHTML = ProjectIcon;
+	icon.querySelector("svg").classList.add("select-project-icon");
+	const text = document.createElement("p");
+	text.textContent = project.name;
+	selection.append(icon, text);
+	return selection;
 }
 
 function createPriorityDropdown() {
@@ -377,18 +391,27 @@ export function createDescriptionInput() {
 }
 
 export function clearDisplay() {
+	// document.querySelector(".heading").replaceChildren();
 	document.querySelector(".todos-list").replaceChildren();
 }
 
 function projectHeading(project) {
 	const heading = document.createElement("header");
 	heading.className = "heading";
-	heading.textContent = project.name;
+	if (!project) {
+		heading.textContent = "Todos";
+	} else {
+		heading.textContent = project.name;
+	}
 	return heading;
 }
 
 export function displayProject(project) {
 	const header = projectHeading(project);
 	document.querySelector(".heading").replaceWith(header);
-	// document.querySelector(".content-wrapper").prepend(header);
+}
+
+export function displayTodoHeading() {
+	const heading = document.querySelector(".heading");
+	heading.textContent = "Todos";
 }

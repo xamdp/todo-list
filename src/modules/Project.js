@@ -3,10 +3,11 @@
 // 1 key for default, which stores the todos created not associated with any projects
 // and of course all the keys listed in projects.
 
-export function createProject(name = "default") {
+// i must use a rehydration, after storing and parsing the data from localStorage
+export function createProject({ name = "default", id = crypto.randomUUID() }) {
 	let todos = [];
 	return {
-		id: crypto.randomUUID(),
+		id: id,
 		name,
 		addTodo(todo) {
 			todos.push(todo);

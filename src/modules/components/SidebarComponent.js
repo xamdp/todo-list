@@ -89,6 +89,9 @@ export function createProjectForm() {
 
 // this should act like a dropdown same with priority-dropdown
 export function viewProjectsSelection() {
+	const wrapper = document.createElement("div");
+	wrapper.className = "project-selection-wrapper";
+
 	const viewProjectBtn = document.createElement("button");
 	viewProjectBtn.type = "button";
 	viewProjectBtn.setAttribute("popovertarget", "project-choices");
@@ -101,16 +104,17 @@ export function viewProjectsSelection() {
 	const span = document.createElement("span");
 	span.textContent = "Projects";
 
-	const projects = getProjects();
+	viewProjectBtn.append(icon, span);
+	// so i need to wrap the viewProjectBtn and dropdown inside a wrapper or container
+	const dropdown = projectDropdown();
+	wrapper.append(viewProjectBtn, dropdown);
 
-	const dropdown = projectDropdown(projects);
-	viewProjectBtn.append(icon, span, dropdown);
-
-	return viewProjectBtn;
+	return wrapper;
 }
 
-// i think i need to pass the created project id and name in here, so i don't need to manually create them.
-function projectDropdown(projects) {
+// project dropdown in sidebar
+export function projectDropdown() {
+	const projects = getProjects();
 	const dropdown = document.createElement("div");
 	dropdown.className = "project-dropdown";
 	dropdown.id = "project-choices";
@@ -135,11 +139,26 @@ function projectDropdown(projects) {
 	return dropdown;
 }
 
+export function renderSidebarProjectSelect(project) {
+	const projectSelect = document.createElement("div");
+	projectSelect.className = "project-select";
+	projectSelect.dataset.id = project.id;
+
+	const icon = document.createElement("div");
+	icon.innerHTML = ProjectSelectIcon;
+	icon.querySelector("svg").classList.add("project-icon");
+	const text = document.createElement("p");
+	text.textContent =
+		project.name.charAt(0).toUpperCase() + project.name.slice(1);
+	projectSelect.append(icon, text);
+	return projectSelect;
+}
+
 function createAddBtn() {
 	const addBtn = document.createElement("button");
 	addBtn.id = "projectAddBtn";
 	addBtn.className = "add-btn";
-	addBtn.type = "submit";
+	addBtn.type = "button";
 	addBtn.innerHTML = ArrowUpIcon;
 	addBtn.querySelector("svg").classList.add("arrow-up-icon");
 	return addBtn;
