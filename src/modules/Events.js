@@ -1,5 +1,5 @@
 import { createTodo } from "./factories/todoFactory.js";
-import { addTodo, getTodos } from "./Todo.js";
+import { addTodo, deleteTodo, getTodos } from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
@@ -63,7 +63,6 @@ function selectedProject(event) {
 	if (project) {
 		// i think i need to call getTodos here, and pass the matchProject
 		const todos = getTodos(project.id);
-		console.log(todos);
 		clearDisplay();
 		displayProject(project);
 		displayTodos(todos);
@@ -73,12 +72,21 @@ function selectedProject(event) {
 }
 
 function handleAddTodo() {
+	const projectDetail = {
+		projectId: document.querySelector(".project-selection").dataset.id,
+		projectName: document
+			.querySelector(".project-selection")
+			.querySelector("p").textContent,
+	};
+
 	const userInput = {
 		title: document.querySelector("#title-input").value,
 		description: document.querySelector("#desc-input").value,
 		dueDate: document.querySelector(".date-text").textContent,
 		priority: document.querySelector(".priority-text").textContent,
+		project: projectDetail,
 	};
+	console.log(userInput);
 	const newTodo = createTodo(userInput);
 	const projectId = getProjectId();
 	const projects = getProjects();
@@ -99,13 +107,6 @@ function handleAddTodo() {
 	}
 }
 
-function handleDisplayTodos() {
-	const todos = getTodos();
-	clearDisplay();
-	displayTodoHeading();
-	displayTodos(todos);
-}
-
 function handleEditTodo() {
 	// how should i get the todo id, uponn clicking edit btn
 	// i think i need to add a data-id in .todo div
@@ -116,6 +117,25 @@ function handleEditTodo() {
 		priority: priority,
 	};
 	// should call here the editTodo(), and pass the userInput
+}
+
+function handleDeleteTodo(event) {
+	const toDelete = event.target.closest(".del-btn");
+	if (!toDelete) return;
+	// console.log(toDelete.dataset.id, toDelete.dataset.projectId);
+	const projectId = toDelete.dataset.projectId;
+	const todo = toDelete.dataset.id;
+	deleteTodo(projectId, todo);
+	const todos = getTodos(projectId);
+	clearDisplay();
+	displayTodos(todos);
+}
+
+function handleDisplayTodos() {
+	const todos = getTodos();
+	clearDisplay();
+	displayTodoHeading();
+	displayTodos(todos);
 }
 
 function descriptionBtnToggle() {
@@ -160,7 +180,7 @@ function displaySelectedPriority(event) {
 function displaySelectedProject(event) {
 	const selected = event.target.closest(".select-project");
 	if (!selected) return;
-	console.log(selected);
+	// console.log(selected);
 	const projectsDropdown = document.querySelector(".projects-dropdown");
 	const selectedProjectId = selected.dataset.id;
 	const selectedProjectName = selected.dataset.name;
@@ -270,6 +290,10 @@ export function initListeners() {
 	document
 		.querySelector(".create-project-btn")
 		.addEventListener("click", handleCreateProject);
+
+	document
+		.querySelector(".todos-container")
+		.addEventListener("click", handleDeleteTodo);
 
 	// document
 	// 	.querySelector(".edit-btn")
