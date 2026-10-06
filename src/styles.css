@@ -111,6 +111,8 @@ body {
 	position: relative;
 }
 
+/* if container has padding, and clicked, event.target.closest('.project-select') will return null */
+/* so for now i just set it to padding: 0, later on I will add a guard check for that */
 .project-dropdown {
 	position-area: bottom span-right;
 	position: absolute;
@@ -119,7 +121,7 @@ body {
 	cursor: pointer;
 	border: none;
 	gap: 4px;
-	padding: 0;
+	padding: 0px;
 	border-radius: 6px;
 	background-color: var(--primary-bg);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

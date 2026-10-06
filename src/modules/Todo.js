@@ -8,7 +8,7 @@ export function addTodo(todo, project = "default") {
 	localStorage.setItem(project, JSON.stringify(todos));
 }
 
-// get the single todo based on id
+// get the single todo based on id, this would work for searching
 function getTodo(id) { }
 
 export function deleteTodo(id) { }

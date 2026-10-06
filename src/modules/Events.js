@@ -55,6 +55,7 @@ function resetForm() {
 
 function selectedProject(event) {
 	const selected = event.target.closest(".project-select").dataset.id;
+	if (!selected) return;
 	console.log(selected);
 
 	const projects = getProjects();
@@ -114,6 +115,7 @@ function handleEditTodo() {
 		dueDate: dueDate,
 		priority: priority,
 	};
+	// should call here the editTodo(), and pass the userInput
 }
 
 function descriptionBtnToggle() {
@@ -157,6 +159,7 @@ function displaySelectedPriority(event) {
 
 function displaySelectedProject(event) {
 	const selected = event.target.closest(".select-project");
+	if (!selected) return;
 	console.log(selected);
 	const projectsDropdown = document.querySelector(".projects-dropdown");
 	const selectedProjectId = selected.dataset.id;
@@ -183,7 +186,10 @@ function handleCreateProject(event) {
 function handleAddProject(e) {
 	if (e) e.preventDefault();
 	const projectName = document.querySelector(".project-name-input").value;
-	const project = createProject(projectName);
+	const projectObj = {
+		name: projectName,
+	};
+	const project = createProject(projectObj);
 	saveProject(project);
 
 	const sidebarDropdown = document.querySelector("#project-choices");
