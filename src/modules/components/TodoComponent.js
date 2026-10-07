@@ -20,10 +20,6 @@ function todoTags(todo) {
 	priority.textContent = todo.priority;
 	priority.className = "priority";
 
-	// const project = document.createElement("p");
-	// project.textContent = project.name;
-	// project.dataset.projectId = project.id;
-
 	tags.append(date, priority);
 	return tags;
 }
