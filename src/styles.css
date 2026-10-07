@@ -350,7 +350,7 @@ body {
 	top: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 80%;
+	width: 100%;
 	max-width: 500px;
 	padding: 8px;
 	border-radius: 10px;
@@ -465,27 +465,56 @@ body {
 	cursor: pointer;
 }
 
+.todo-desc:hover,
+.todo-priority:hover {
+	background-color: var(--accent-bg);
+}
+
+
 
 .project-field-wrapper {
 	display: flex;
 	width: 100%;
-	height: 100%;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	/* background-color: var(--primary-bg); */
+}
+
+.cancel-project-btn {
+	background-color: transparent;
+	border: none;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.cancel-project-btn:hover {
+	background-color: var(--accent-color);
+}
+
+.cancel-project-icon {
+	width: 10px;
+	height: auto;
 }
 
 .project-selection {
 	height: 100%;
+	border: none;
 	flex: 1;
-	border: 1px solid #ccc;
-	border-radius: 8px;
 	display: flex;
 	gap: 5px;
+	border-radius: 8px;
+	background-color: var(--primary-bg);
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	background-color: var(--primary-bg);
-	color: #666666;
 	cursor: pointer;
+	color: #666666;
 }
+
+.project-selection:hover {
+	background-color: var(--accent-bg)
+}
+
 
 /* span tag */
 .datepicker-toggle {
@@ -498,6 +527,7 @@ body {
 	color: #ccc;
 	border: none;
 }
+
 
 /* i moved the position: relative to .datepicker-toggle */
 /* so that the entire span is clicked the datePicker is shown */
@@ -522,6 +552,7 @@ body {
 	box-sizing: border-box;
 }
 
+
 /* i've added some padding to make the indicator have more space */
 .datepicker-input::-webkit-calendar-picker-indicator {
 	position: absolute;
@@ -531,6 +562,13 @@ body {
 	margin: 0;
 	padding: 5px;
 	cursor: pointer;
+}
+
+/* for some reason, i am having a hard time how to style this */
+.datepicker-input:hover {
+	.datepicker-toggle-btn {
+		background-color: var(--accent-bg);
+	}
 }
 
 .datepicker-toggle-btn p {

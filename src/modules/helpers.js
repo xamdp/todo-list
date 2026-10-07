@@ -20,3 +20,20 @@ export function getProjectId() {
 	const projectId = projectFieldBtn.dataset.id;
 	return projectId;
 }
+
+// still need to fix this, when a click the popover selection instead of the cancel button, the btn is hidden.
+export function toggleProjectCancelBtn() {
+	const cancelBtn = document.querySelector(".cancel-project-btn");
+	cancelBtn.classList.toggle("hidden");
+}
+
+export function unselectProject() {
+	const project = document.querySelector(".project-selection");
+	const projectText = project.querySelector("p");
+	const cancelBtn = document.querySelector(".cancel-project-btn");
+	if (project.dataset.id) {
+		delete project.dataset.id;
+		projectText.textContent = "Project";
+		cancelBtn.classList.toggle("hidden");
+	}
+}

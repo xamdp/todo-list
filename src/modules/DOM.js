@@ -160,12 +160,17 @@ export function createTodoForm() {
 	const dueDate = datePicker();
 	const priority = createPriorityField();
 	const priorities = createPriorityDropdown();
-	const projectFieldWrapper = document.createElement("project-field-wrapper");
+	const projectFieldWrapper = document.createElement("div");
+	projectFieldWrapper.className = "project-field-wrapper";
 	const project = createProjectField();
+	// i need to create another div here or button which only appears if a project is selected
+	// its purpose is to act as cancel button for selecting the selected project
+	const cancelProject = cancelProjectBtn();
+	// console.log(cancelProject);
 	const projectList = createProjectDropdown();
 
 	priority.append(priorities);
-	projectFieldWrapper.append(project, projectList);
+	projectFieldWrapper.append(project, cancelProject, projectList);
 
 	fieldsContainer.append(description, dueDate, priority, projectFieldWrapper);
 	outerContainer.append(fieldsContainer);
@@ -183,6 +188,18 @@ export function createTodoForm() {
 	outerContainer.append(formBtns);
 
 	return dialog;
+}
+
+function cancelProjectBtn() {
+	const button = document.createElement("button");
+	button.type = "button";
+	button.className = "cancel-project-btn";
+	const icon = document.createElement("div");
+	icon.innerHTML = CancelIcon;
+	icon.querySelector("svg").classList.add("cancel-project-icon");
+	button.append(icon);
+	button.classList.toggle("hidden");
+	return button;
 }
 
 function createAddBtn() {
