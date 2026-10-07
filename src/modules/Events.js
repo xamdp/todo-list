@@ -8,7 +8,12 @@ import {
 	displayTodos,
 	renderFieldProjectSelect,
 } from "./DOM.js";
-import { checkDateInput, getProjectId } from "./helpers.js";
+import {
+	checkDateInput,
+	getProjectId,
+	toggleProjectCancelBtn,
+	unselectProject,
+} from "./helpers.js";
 import { createProject, getProjects, saveProject } from "./Project.js";
 import { renderSidebarProjectSelect } from "./components/SidebarComponent.js";
 
@@ -131,6 +136,7 @@ function handleDeleteTodo(event) {
 	displayTodos(todos);
 }
 
+// this only display the default todos when todos from sidebar is clicked
 function handleDisplayTodos() {
 	const todos = getTodos();
 	clearDisplay();
@@ -188,9 +194,15 @@ function displaySelectedProject(event) {
 	let projectSelectionText = document
 		.querySelector(".project-selection")
 		.querySelector("p");
+	toggleProjectCancelBtn();
 	projectSelectionText.textContent = selectedProjectName;
 	projectSelectionBtn.setAttribute("data-id", selectedProjectId);
 	projectsDropdown.hidePopover();
+}
+
+function handleCancelProject() {
+	unselectProject();
+	console.log("hi");
 }
 
 function handleCreateProject(event) {
@@ -281,6 +293,10 @@ export function initListeners() {
 	document
 		.querySelector(".projects-dropdown")
 		.addEventListener("click", displaySelectedProject);
+
+	document
+		.querySelector(".cancel-project-btn")
+		.addEventListener("click", handleCancelProject);
 
 	// listener in the sidebar
 	document
