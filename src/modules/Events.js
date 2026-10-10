@@ -1,8 +1,9 @@
-import { createTodo } from "./factories/todoFactory.js";
-import { addTodo, deleteTodo, getTodos } from "./Todo.js";
+// import { createTodo } from "./factories/todoFactory.js";
+import { addTodo, deleteTodo, editTodo, getTodo, getTodos } from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
+	displayEditTodoForm,
 	displayProject,
 	displayTodoHeading,
 	displayTodos,
@@ -11,8 +12,10 @@ import {
 import {
 	checkDateInput,
 	getProjectId,
+	submitTodoLogic,
 	toggleProjectCancelBtn,
 	unselectProject,
+	resetForm,
 } from "./helpers.js";
 import { createProject, getProjects, saveProject } from "./Project.js";
 import { renderSidebarProjectSelect } from "./components/SidebarComponent.js";
@@ -27,14 +30,19 @@ function handleAddTodoBtnClick() {
 
 function closeTodoModal() {
 	const modal = document.getElementById("todo-modal");
+	modal.dataset.id = "default"; // bro this took me hours to figure out, i just need to set back the default id when the modal closes
 	modal.close();
 
-	const dueDateInput = document.querySelector(".datepicker-input");
+	const dateText = document.querySelector(".date-text");
+	dateText.classList.add("hidden");
+	dateText.classList.remove("active");
 
 	const priorityText = document.querySelector(".priority-text");
 	priorityText.classList.add("hidden");
 	priorityText.classList.remove("active");
 
+	const titleInput = document.querySelector("#title-input");
+	titleInput.value = "";
 	const descInput = document.querySelector("#desc-input");
 	if (descInput === null) {
 		return;
@@ -47,17 +55,6 @@ function closeProjectModal() {
 	modal.close();
 }
 
-function resetForm() {
-	const todoForm = document.querySelector(".todo-form");
-	const dateText = document.querySelector(".date-text");
-	const priorityText = document.querySelector(".priority-text");
-	todoForm.reset();
-	dateText.textContent = "";
-	dateText.classList.toggle("hidden");
-	priorityText.textContent = "";
-	priorityText.classList.toggle("hidden");
-}
-
 function selectedProject(event) {
 	const selected = event.target.closest(".project-select").dataset.id;
 	if (!selected) return;
@@ -68,6 +65,7 @@ function selectedProject(event) {
 	if (project) {
 		// i think i need to call getTodos here, and pass the matchProject
 		const todos = getTodos(project.id);
+		console.log(todos);
 		clearDisplay();
 		displayProject(project);
 		displayTodos(todos);
@@ -76,59 +74,53 @@ function selectedProject(event) {
 	}
 }
 
-function handleAddTodo() {
-	const projectDetail = {
-		projectId: document.querySelector(".project-selection").dataset.id,
-		projectName: document
-			.querySelector(".project-selection")
-			.querySelector("p").textContent,
-	};
-
-	const userInput = {
-		title: document.querySelector("#title-input").value,
-		description: document.querySelector("#desc-input").value,
-		dueDate: document.querySelector(".date-text").textContent,
-		priority: document.querySelector(".priority-text").textContent,
-		project: projectDetail,
-	};
-	console.log(userInput);
-	const newTodo = createTodo(userInput);
-	const projectId = getProjectId();
-	const projects = getProjects();
-	const project = projects.find((project) => project.id === projectId);
-	if (project) {
-		addTodo(newTodo, projectId); // this works for now, because I am using the default project, here to, i need to pass the project.id
+function handleSubmit(event) {
+	event.preventDefault();
+	const editingTodoId = document.getElementById("todo-modal").dataset.id;
+	console.log(editingTodoId);
+	if (editingTodoId !== "default" && editingTodoId !== "") {
+		const todo = {
+			title: document.querySelector("#title-input").value,
+			description: document.querySelector("#desc-input").value,
+			dueDate: document.querySelector(".datepicker-input").value,
+			priority: document.querySelector(".priority-text").textContent,
+		};
+		const project = getProjectId();
+		console.log(project);
+		editTodo(todo, editingTodoId, project.projectId);
 		resetForm();
-		const dataToDisplay = getTodos(projectId); // need to pass here the project.id
+		const dataToDisplay = getTodos(project.projectId); // need to pass here the project.id
 		clearDisplay();
 		displayProject(project);
 		displayTodos(dataToDisplay);
+	} else if (editingTodoId === "default") {
+		// for adding todo
+		submitTodoLogic();
 	} else {
-		addTodo(newTodo);
-		resetForm();
-		const dataToDisplay = getTodos();
-		clearDisplay();
-		displayTodos(dataToDisplay);
+		console.log("bru, whats wrong");
 	}
 }
 
-function handleEditTodo() {
-	// how should i get the todo id, uponn clicking edit btn
-	// i think i need to add a data-id in .todo div
-	const userInput = {
-		title: title,
-		description: description,
-		dueDate: dueDate,
-		priority: priority,
-	};
-	// should call here the editTodo(), and pass the userInput
+function handleEditTodoBtnClick(event) {
+	const editBtn = event.target.closest(".edit-btn");
+	if (!editBtn) return;
+
+	const todoId = editBtn.dataset.id;
+	const projectId = editBtn.dataset.projectId;
+
+	const project = projectId != "undefined" ? projectId : "default";
+
+	const todo = getTodo(todoId, project); // this only return one todo, based on the clicked edit-btn
+	displayEditTodoForm(todo);
 }
 
 function handleDeleteTodo(event) {
 	const toDelete = event.target.closest(".del-btn");
 	if (!toDelete) return;
 	// console.log(toDelete.dataset.id, toDelete.dataset.projectId);
-	const projectId = toDelete.dataset.projectId;
+	const isProjectId = toDelete.dataset.projectId;
+	const projectId = isProjectId !== "undefined" ? isProjectId : "default";
+	console.log(projectId);
 	const todo = toDelete.dataset.id;
 	deleteTodo(projectId, todo);
 	const todos = getTodos(projectId);
@@ -149,13 +141,19 @@ function descriptionBtnToggle() {
 	createDescriptionInput();
 }
 
-// .date-text should not be hidden when the user decided to change the date
+// for now this works
 function dueDateBtnToggle(event) {
 	const dateText = document.querySelector(".date-text");
-	dateText.classList.remove("hidden");
-	// text-content should not set antything if the target.value holds no value
-	dateText.textContent = event.target.value;
-	checkDateInput();
+	const input = event.currentTarget.value;
+	if (input === "") {
+		dateText.classList.add("hidden");
+	}
+
+	if (input) {
+		dateText.classList.remove("hidden");
+		dateText.textContent = input;
+		checkDateInput();
+	}
 }
 
 function priorityBtnToggle(e) {
@@ -183,6 +181,7 @@ function displaySelectedPriority(event) {
 	priorityText.classList.remove("hidden");
 }
 
+// for dropdown in todo form
 function displaySelectedProject(event) {
 	const selected = event.target.closest(".select-project");
 	if (!selected) return;
@@ -255,10 +254,9 @@ export function initListeners() {
 		.querySelector("#cancelBtn")
 		.addEventListener("click", closeTodoModal);
 
-	document.querySelector(".todo-form").addEventListener("submit", (event) => {
-		event.preventDefault();
-		handleAddTodo();
-	});
+	document
+		.querySelector(".todo-form")
+		.addEventListener("submit", handleSubmit);
 
 	document
 		.querySelector(".show-todos")
@@ -278,7 +276,7 @@ export function initListeners() {
 
 	document
 		.querySelector(".datepicker-input")
-		.addEventListener("input", dueDateBtnToggle);
+		.addEventListener("change", dueDateBtnToggle);
 
 	document
 		.querySelector(".todo-priority")
@@ -311,7 +309,7 @@ export function initListeners() {
 		.querySelector(".todos-container")
 		.addEventListener("click", handleDeleteTodo);
 
-	// document
-	// 	.querySelector(".edit-btn")
-	// 	.addEventListener("click", handleEditTodo);
+	document
+		.querySelector(".todos-container")
+		.addEventListener("click", handleEditTodoBtnClick);
 }

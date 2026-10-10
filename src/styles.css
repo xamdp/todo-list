@@ -749,6 +749,25 @@ body {
 	background-color: #c0392b;
 }
 
+.edit-submit-btn {
+	display: flex;
+	align-content: center;
+	align-self: flex-end;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 5px;
+	justify-content: center;
+	border: none;
+	cursor: pointer;
+	background-color: #e74c3c;
+	color: var(--primary-bg);
+}
+
+.edit-submit-btn:hover {
+	background-color: #c0392b;
+}
+
 .cancel-icon,
 .arrow-up-icon {
 	align-self: center;
