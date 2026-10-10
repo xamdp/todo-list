@@ -3,6 +3,7 @@ import { addTodo, deleteTodo, editTodo, getTodo, getTodos } from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
+	deleteConfirmationModal,
 	displayEditTodoForm,
 	displayProject,
 	displayTodoHeading,
@@ -114,15 +115,32 @@ function handleEditTodoBtnClick(event) {
 	displayEditTodoForm(todo);
 }
 
-function handleDeleteTodo(event) {
+function openDeleteModal(event) {
 	const toDelete = event.target.closest(".del-btn");
 	if (!toDelete) return;
-	// console.log(toDelete.dataset.id, toDelete.dataset.projectId);
+	const deleteModal = document.querySelector(".delete-modal");
+	deleteModal.showModal();
+	const yesDelBtn = document.querySelector("#yes-del-btn");
+	yesDelBtn.dataset.id = toDelete.dataset.id;
+	yesDelBtn.dataset.projectId = toDelete.dataset.projectId;
+}
+
+function closeDeleteModal() {
+	const deleteModal = document.querySelector(".delete-modal");
+	deleteModal.close();
+	const yesDelBtn = document.querySelector("#yes-del-btn");
+	yesDelBtn.dataset.id = "";
+	yesDelBtn.dataset.projectId = "";
+}
+
+function handleDelete() {
+	const toDelete = document.querySelector("#yes-del-btn");
 	const isProjectId = toDelete.dataset.projectId;
 	const projectId = isProjectId !== "undefined" ? isProjectId : "default";
-	console.log(projectId);
 	const todo = toDelete.dataset.id;
+	// i should only delete, when i click the  yes btn
 	deleteTodo(projectId, todo);
+	closeDeleteModal();
 	const todos = getTodos(projectId);
 	clearDisplay();
 	displayTodos(todos);
@@ -307,7 +325,15 @@ export function initListeners() {
 
 	document
 		.querySelector(".todos-container")
-		.addEventListener("click", handleDeleteTodo);
+		.addEventListener("click", openDeleteModal);
+
+	document
+		.querySelector("#yes-del-btn")
+		.addEventListener("click", handleDelete);
+
+	document
+		.querySelector("#no-del-btn")
+		.addEventListener("click", closeDeleteModal);
 
 	document
 		.querySelector(".todos-container")

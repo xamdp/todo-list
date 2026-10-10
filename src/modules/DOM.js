@@ -94,7 +94,8 @@ export function TodosContainer() {
 	todosContainer.prepend(todosList);
 
 	const form = createTodoForm();
-	todosContainer.append(form);
+	const deleteModal = deleteConfirmationModal();
+	todosContainer.append(form, deleteModal);
 	// const card = addTodoCard();
 	// todosContainer.append(card);
 }
@@ -467,4 +468,31 @@ export function submitBtnForEditTodo() {
 	addBtn.innerHTML = ArrowUpIcon;
 	addBtn.querySelector("svg").classList.add("arrow-up-icon");
 	return addBtn;
+}
+
+export function deleteConfirmationModal() {
+	const modal = document.createElement("dialog");
+	modal.className = "delete-modal";
+	const outerDiv = document.createElement("div");
+	outerDiv.className = "delete-container";
+	const question = document.createElement("h3");
+	question.textContent = "Are you sure you want to delete this todo?";
+
+	const choicesDiv = document.createElement("div");
+	choicesDiv.className = "delete-choices";
+
+	const yesBtn = document.createElement("button");
+	yesBtn.textContent = "Yes, delete it!";
+	yesBtn.id = "yes-del-btn";
+	yesBtn.className = "yes-btn";
+	const noBtn = document.createElement("button");
+	noBtn.textContent = "Please don't :(";
+	noBtn.className = "no-btn";
+	noBtn.id = "no-del-btn";
+
+	choicesDiv.append(yesBtn, noBtn);
+
+	outerDiv.append(question, choicesDiv);
+	modal.append(outerDiv);
+	return modal;
 }
