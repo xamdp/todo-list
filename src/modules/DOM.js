@@ -21,6 +21,7 @@ import {
 	todoDetail,
 } from "./components/TodoComponent.js";
 import { getProjects } from "./Project.js";
+import { addTodo } from "./Todo.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -94,13 +95,16 @@ export function TodosContainer() {
 	todosContainer.prepend(todosList);
 
 	const form = createTodoForm();
-	todosContainer.append(form);
-	// const card = addTodoCard();
-	// todosContainer.append(card);
+	const deleteModal = deleteConfirmationModal();
+	const cardDiv = addTodoCard();
+	cardDiv.classList.add("hidden");
+	todosContainer.append(form, deleteModal, cardDiv);
 }
 
-function addTodoCard() {
+// this should show up, only if there is no todos to display
+export function addTodoCard() {
 	const cardDiv = document.createElement("div");
+	cardDiv.classList.add("hidden");
 	cardDiv.className = "card-div";
 	const todoIcon = document.createElement("div");
 	todoIcon.className = "todo-icon";
@@ -121,10 +125,12 @@ function addTodoCard() {
 // hides card-div if there is todos present in the .todos-list container
 export function hideAddTodoCard() {
 	const cardDiv = document.querySelector(".card-div");
-	const todosList = document.querySelector(".todos-list");
-	console.log("are they same?", cardDiv === todosList);
-	// maybe i'll just hide for now the addCardDiv
-	// cardDiv.replaceChildren();
+	cardDiv.classList.add("hidden");
+}
+
+export function showAddTodoCard() {
+	const cardDiv = document.querySelector(".card-div");
+	cardDiv.classList.remove("hidden");
 }
 
 // i might also transfer this to a component
@@ -467,4 +473,31 @@ export function submitBtnForEditTodo() {
 	addBtn.innerHTML = ArrowUpIcon;
 	addBtn.querySelector("svg").classList.add("arrow-up-icon");
 	return addBtn;
+}
+
+export function deleteConfirmationModal() {
+	const modal = document.createElement("dialog");
+	modal.className = "delete-modal";
+	const outerDiv = document.createElement("div");
+	outerDiv.className = "delete-container";
+	const question = document.createElement("h3");
+	question.textContent = "Are you sure you want to delete this todo?";
+
+	const choicesDiv = document.createElement("div");
+	choicesDiv.className = "delete-choices";
+
+	const yesBtn = document.createElement("button");
+	yesBtn.textContent = "Yes, delete it!";
+	yesBtn.id = "yes-del-btn";
+	yesBtn.className = "yes-btn";
+	const noBtn = document.createElement("button");
+	noBtn.textContent = "Please don't :(";
+	noBtn.className = "no-btn";
+	noBtn.id = "no-del-btn";
+
+	choicesDiv.append(yesBtn, noBtn);
+
+	outerDiv.append(question, choicesDiv);
+	modal.append(outerDiv);
+	return modal;
 }

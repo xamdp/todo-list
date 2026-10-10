@@ -1,5 +1,6 @@
 import EditIcon from "../../asset/icons/edit.svg";
 import DeleteIcon from "../../asset/icons/delete.svg";
+import TrashIcon from "../../asset/icons/trash.svg";
 
 export function todoCheckbox() {
 	const checkbox = document.createElement("input");
@@ -71,7 +72,7 @@ export function deleteButton(todo) {
 	delBtn.dataset.id = todo.id;
 	delBtn.dataset.projectId = todo.project.projectId;
 	const icon = document.createElement("div");
-	icon.innerHTML = DeleteIcon;
+	icon.innerHTML = TrashIcon;
 	icon.querySelector("svg").classList.add("delete-icon");
 	delBtn.append(icon);
 	return delBtn;
