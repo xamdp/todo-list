@@ -145,6 +145,7 @@ export function displayTodos(todos) {
 export function createTodoForm() {
 	const dialog = document.createElement("dialog");
 	dialog.id = "todo-modal";
+	dialog.dataset.id = "default";
 	const todoForm = document.createElement("form");
 	todoForm.className = "todo-form";
 
@@ -160,13 +161,11 @@ export function createTodoForm() {
 	const dueDate = datePicker();
 	const priority = createPriorityField();
 	const priorities = createPriorityDropdown();
+
 	const projectFieldWrapper = document.createElement("div");
 	projectFieldWrapper.className = "project-field-wrapper";
 	const project = createProjectField();
-	// i need to create another div here or button which only appears if a project is selected
-	// its purpose is to act as cancel button for selecting the selected project
 	const cancelProject = cancelProjectBtn();
-	// console.log(cancelProject);
 	const projectList = createProjectDropdown();
 
 	priority.append(priorities);
@@ -265,6 +264,7 @@ function createProjectField() {
 	project.type = "button";
 	project.className = "project-selection";
 	project.setAttribute("popovertarget", "projects-choices");
+	project.dataset.id = "default";
 	const projectText = document.createElement("p");
 	projectText.textContent = "Project";
 	const projectIcon = document.createElement("div");
@@ -412,10 +412,11 @@ export function clearDisplay() {
 	document.querySelector(".todos-list").replaceChildren();
 }
 
+//basically the parsed project from getProjects have different obj prop naming, it's id and name
 function projectHeading(project) {
 	const heading = document.createElement("header");
 	heading.className = "heading";
-	if (!project) {
+	if (project.projectName === "default") {
 		heading.textContent = "Todos";
 	} else {
 		heading.textContent = project.name;
@@ -431,4 +432,39 @@ export function displayProject(project) {
 export function displayTodoHeading() {
 	const heading = document.querySelector(".heading");
 	heading.textContent = "Todos";
+}
+
+// when I click the edit button, this should show the todo form back with the inputs filled.
+export function displayEditTodoForm(todo) {
+	const modal = document.getElementById("todo-modal");
+	modal.dataset.id = todo.id;
+	modal.showModal();
+
+	createDescriptionInput();
+	// in here I may need to query some elements inside the form and set their values and textContent based on the currently edited todo
+	const titleInput = document.querySelector("#title-input");
+	const descInput = document.querySelector("#desc-input");
+	const dateText = document.querySelector(".date-text");
+	const dateInput = document.querySelector(".datepicker-input");
+	const priorityText = document.querySelector(".priority-text");
+
+	titleInput.value = todo.title;
+	descInput.value = todo.description;
+	dateText.textContent = todo.dueDate;
+	dateInput.value = todo.dueDate;
+	dateText.classList.toggle("hidden");
+	priorityText.textContent = todo.priority;
+	priorityText.classList.toggle("hidden");
+}
+
+// when i click the edit button, this should replace the standard submit button in todo form.
+//  i think I don't need this anymore
+export function submitBtnForEditTodo() {
+	const addBtn = document.createElement("button");
+	addBtn.id = "editAddBtn";
+	addBtn.className = "edit-submit-btn";
+	addBtn.type = "submit";
+	addBtn.innerHTML = ArrowUpIcon;
+	addBtn.querySelector("svg").classList.add("arrow-up-icon");
+	return addBtn;
 }
