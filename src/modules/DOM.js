@@ -21,6 +21,7 @@ import {
 	todoDetail,
 } from "./components/TodoComponent.js";
 import { getProjects } from "./Project.js";
+import { addTodo } from "./Todo.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -95,13 +96,15 @@ export function TodosContainer() {
 
 	const form = createTodoForm();
 	const deleteModal = deleteConfirmationModal();
-	todosContainer.append(form, deleteModal);
-	// const card = addTodoCard();
-	// todosContainer.append(card);
+	const cardDiv = addTodoCard();
+	cardDiv.classList.add("hidden");
+	todosContainer.append(form, deleteModal, cardDiv);
 }
 
-function addTodoCard() {
+// this should show up, only if there is no todos to display
+export function addTodoCard() {
 	const cardDiv = document.createElement("div");
+	cardDiv.classList.add("hidden");
 	cardDiv.className = "card-div";
 	const todoIcon = document.createElement("div");
 	todoIcon.className = "todo-icon";
@@ -122,10 +125,12 @@ function addTodoCard() {
 // hides card-div if there is todos present in the .todos-list container
 export function hideAddTodoCard() {
 	const cardDiv = document.querySelector(".card-div");
-	const todosList = document.querySelector(".todos-list");
-	console.log("are they same?", cardDiv === todosList);
-	// maybe i'll just hide for now the addCardDiv
-	// cardDiv.replaceChildren();
+	cardDiv.classList.add("hidden");
+}
+
+export function showAddTodoCard() {
+	const cardDiv = document.querySelector(".card-div");
+	cardDiv.classList.remove("hidden");
 }
 
 // i might also transfer this to a component
