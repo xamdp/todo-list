@@ -45,16 +45,18 @@ export function todoDetail(todo) {
 export function todoButtons(todo) {
 	const buttons = document.createElement("div");
 	buttons.className = "btn-group";
-	const editBtn = editButton();
+	const editBtn = editButton(todo);
 	const delBtn = deleteButton(todo);
 	buttons.append(editBtn, delBtn);
 	return buttons;
 }
 
-function editButton() {
+function editButton(todo) {
 	const editBtn = document.createElement("button");
 	editBtn.type = "button";
 	editBtn.className = "edit-btn";
+	editBtn.dataset.id = todo.id;
+	editBtn.dataset.projectId = todo.project.projectId;
 	const icon = document.createElement("div");
 	icon.innerHTML = EditIcon;
 	icon.querySelector("svg").classList.add("edit-icon");
