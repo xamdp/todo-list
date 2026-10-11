@@ -151,7 +151,7 @@ export function displayTodos(todos) {
 export function createTodoForm() {
 	const dialog = document.createElement("dialog");
 	dialog.id = "todo-modal";
-	dialog.dataset.id = "default";
+	dialog.dataset.editingTodoId = null;
 	const todoForm = document.createElement("form");
 	todoForm.className = "todo-form";
 
@@ -265,12 +265,13 @@ function createDescriptionField() {
 	return description;
 }
 
+// project field in todo-form
 function createProjectField() {
 	const project = document.createElement("button");
 	project.type = "button";
 	project.className = "project-selection";
 	project.setAttribute("popovertarget", "projects-choices");
-	project.dataset.id = "default";
+	project.dataset.projectId = "default";
 	const projectText = document.createElement("p");
 	projectText.textContent = "Project";
 	const projectIcon = document.createElement("div");
@@ -306,13 +307,13 @@ function createProjectDropdown() {
 	projects.forEach((project) => {
 		const selection = document.createElement("div");
 		selection.className = "select-project";
-		selection.dataset.id = project.id;
-		selection.dataset.name = project.name;
+		selection.dataset.projectId = project.projectId;
+		selection.dataset.projectName = project.projectName;
 		const icon = document.createElement("div");
 		icon.innerHTML = ProjectIcon;
 		icon.querySelector("svg").classList.add("select-project-icon");
 		const text = document.createElement("p");
-		text.textContent = project.name;
+		text.textContent = project.projectName;
 		selection.append(icon, text);
 		projectList.append(selection);
 	});
@@ -321,15 +322,17 @@ function createProjectDropdown() {
 
 export function renderFieldProjectSelect(project) {
 	const selection = document.createElement("div");
+	// const project = document.querySelector(".project-selection");
+	// project.dataset.projectName =
 	selection.className = "select-project";
-	selection.dataset.id = project.id;
-	selection.dataset.name = project.name;
+	selection.dataset.projectId = project.projectId;
+	selection.dataset.projectName = project.projectName;
 
 	const icon = document.createElement("div");
 	icon.innerHTML = ProjectIcon;
 	icon.querySelector("svg").classList.add("select-project-icon");
 	const text = document.createElement("p");
-	text.textContent = project.name;
+	text.textContent = project.projectName;
 	selection.append(icon, text);
 	return selection;
 }
@@ -419,19 +422,19 @@ export function clearDisplay() {
 }
 
 //basically the parsed project from getProjects have different obj prop naming, it's id and name
-function projectHeading(project) {
+function projectHeading({ projectName }) {
 	const heading = document.createElement("header");
 	heading.className = "heading";
-	if (project.projectName === "default") {
+	if (projectName === "default") {
 		heading.textContent = "Todos";
 	} else {
-		heading.textContent = project.name;
+		heading.textContent = projectName;
 	}
 	return heading;
 }
 
-export function displayProject(project) {
-	const header = projectHeading(project);
+export function displayProject({ projectName }) {
+	const header = projectHeading({ projectName });
 	document.querySelector(".heading").replaceWith(header);
 }
 
@@ -443,7 +446,7 @@ export function displayTodoHeading() {
 // when I click the edit button, this should show the todo form back with the inputs filled.
 export function displayEditTodoForm(todo) {
 	const modal = document.getElementById("todo-modal");
-	modal.dataset.id = todo.id;
+	modal.dataset.editingTodoId = todo.id;
 	modal.showModal();
 
 	createDescriptionInput();
@@ -453,6 +456,12 @@ export function displayEditTodoForm(todo) {
 	const dateText = document.querySelector(".date-text");
 	const dateInput = document.querySelector(".datepicker-input");
 	const priorityText = document.querySelector(".priority-text");
+	const projectText = document
+		.querySelector(".project-selection")
+		.querySelector("p");
+	const projectFieldWrapper = document.querySelector(
+		".project-field-wrapper",
+	);
 
 	titleInput.value = todo.title;
 	descInput.value = todo.description;
@@ -461,6 +470,10 @@ export function displayEditTodoForm(todo) {
 	dateText.classList.toggle("hidden");
 	priorityText.textContent = todo.priority;
 	priorityText.classList.toggle("hidden");
+
+	projectFieldWrapper.classList.add("hide-project");
+	// i think i should toggle a classlist specific for project
+	// user should not able to edit project
 }
 
 // when i click the edit button, this should replace the standard submit button in todo form.
