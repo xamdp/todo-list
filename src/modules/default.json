@@ -1,0 +1,11 @@
+{
+    "title": "Create a project to organize your todos",
+    "description": "Guide on how to use this todo list",
+    "dueDate": "2026-10-11",
+    "id": "todolistguide",
+    "priority": "Priority 1",
+    "project": {
+        "projectId": "default",
+        "projectName": "default"
+    }
+}

@@ -266,7 +266,7 @@ body {
 
 .todo-tags .date {
 	background-color: #FFC0CB;
-	padding: 3px;
+	padding: 6px 9px;
 	border-radius: 5px;
 	align-self: center;
 	font-weight: 500;
@@ -276,7 +276,17 @@ body {
 .todo-tags .priority {
 	margin: 0;
 	background-color: mediumpurple;
-	padding: 3px;
+	padding: 6px 9px;
+	border-radius: 5px;
+	align-self: center;
+	font-weight: 500;
+	font-size: 0.9em;
+}
+
+.todo-tags .project {
+	margin: 0;
+	background-color: darkolivegreen;
+	padding: 6px 9px;
 	border-radius: 5px;
 	align-self: center;
 	font-weight: 500;
@@ -351,7 +361,7 @@ body {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
-	max-width: 500px;
+	max-width: 700px;
 	padding: 8px;
 	border-radius: 10px;
 	border: 1px solid #ccc;
@@ -542,6 +552,11 @@ body {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	/* background-color: var(--primary-bg); */
+}
+
+.hide-project {
+	display: none;
+	border: none;
 }
 
 .cancel-project-btn {
@@ -846,6 +861,7 @@ body {
 .active {
 	display: block;
 }
+
 
 /* i saw this from stackoverflow, this removes the background from the suggested input */
 input:-webkit-autofill,

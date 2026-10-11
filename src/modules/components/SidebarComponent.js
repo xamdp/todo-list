@@ -115,6 +115,7 @@ export function viewProjectsSelection() {
 // project dropdown in sidebar
 export function projectDropdown() {
 	const projects = getProjects();
+	// console.log(projects);
 	const dropdown = document.createElement("div");
 	dropdown.className = "project-dropdown";
 	dropdown.id = "project-choices";
@@ -123,13 +124,14 @@ export function projectDropdown() {
 	projects.forEach((project) => {
 		const projectSelect = document.createElement("div");
 		projectSelect.className = "project-select";
-		projectSelect.dataset.id = project.id;
+		projectSelect.dataset.id = project.projectId;
 		const icon = document.createElement("div");
 		icon.innerHTML = ProjectSelectIcon;
 		icon.querySelector("svg").classList.add("project-icon");
 		const text = document.createElement("p");
 		const name =
-			project.name.charAt(0).toUpperCase() + project.name.slice(1); // might create a function for this, capitalize first letter
+			project.projectName.charAt(0).toUpperCase() +
+			project.projectName.slice(1); // might create a function for this, capitalize first letter
 		text.textContent = name;
 		projectSelect.append(icon, text);
 
@@ -142,14 +144,13 @@ export function projectDropdown() {
 export function renderSidebarProjectSelect(project) {
 	const projectSelect = document.createElement("div");
 	projectSelect.className = "project-select";
-	projectSelect.dataset.id = project.id;
+	projectSelect.dataset.id = project.projectId;
 
 	const icon = document.createElement("div");
 	icon.innerHTML = ProjectSelectIcon;
 	icon.querySelector("svg").classList.add("project-icon");
 	const text = document.createElement("p");
-	text.textContent =
-		project.name.charAt(0).toUpperCase() + project.name.slice(1);
+	text.textContent = project.projectName;
 	projectSelect.append(icon, text);
 	return projectSelect;
 }

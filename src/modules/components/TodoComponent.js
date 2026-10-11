@@ -1,5 +1,4 @@
 import EditIcon from "../../asset/icons/edit.svg";
-import DeleteIcon from "../../asset/icons/delete.svg";
 import TrashIcon from "../../asset/icons/trash.svg";
 
 export function todoCheckbox() {
@@ -21,7 +20,13 @@ function todoTags(todo) {
 	priority.textContent = todo.priority;
 	priority.className = "priority";
 
-	tags.append(date, priority);
+	const project = document.createElement("p");
+	project.textContent = todo.project.projectName;
+	project.dataset.projectId = todo.project.projectId;
+	project.dataset.projectName = todo.project.projectName;
+	project.className = "project";
+
+	tags.append(date, priority, project);
 	return tags;
 }
 
@@ -40,6 +45,7 @@ export function todoDetail(todo) {
 
 	const tags = todoTags(todo);
 	actionsContainer.append(title, description, tags);
+
 	return actionsContainer;
 }
 
