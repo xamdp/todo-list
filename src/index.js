@@ -17,9 +17,9 @@ import { getTodos, defaultTodos } from "./modules/Todo.js";
 // which is bad, because it takes too many responsibility
 function initializeTodoList() {
 	const data = getTodos();
-	if (data.length === 0) {
-		showAddTodoCard();
-	}
+	// if (data.length === 0) {
+	// 	showAddTodoCard();
+	// }
 	clearDisplay();
 	displayTodos(data);
 }
@@ -34,5 +34,5 @@ function initializeTodo() {
 }
 
 initializeTodo();
-initializeTodoList();
 initListeners();
+initializeTodoList();
