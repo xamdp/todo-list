@@ -4,11 +4,14 @@
 // and of course all the keys listed in projects.
 
 // i must use a rehydration, after storing and parsing the data from localStorage
-export function createProject({ name = "default", id = crypto.randomUUID() }) {
+export function createProject({
+	projectName = "default",
+	projectId = crypto.randomUUID(),
+}) {
 	let todos = [];
 	return {
-		id: id,
-		name,
+		projectId: projectId,
+		projectName: projectName,
 		addTodo(todo) {
 			todos.push(todo);
 		},
