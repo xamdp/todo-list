@@ -1,10 +1,12 @@
 export let defaultTodos = []; // this is the default project
 
 // i need to add a todo and a project.id, project.id is the key for getTodos
-export function addTodo(todo, project = "default") {
+export function addTodo(todo, project) {
+	console.log(project);
 	const todos = getTodos(project);
 	// console.log(todos);
 	todos.push(todo); // pushing todo to array, and refreshing the page
+	console.log(todos);
 	localStorage.setItem(project, JSON.stringify(todos));
 }
 
@@ -30,10 +32,13 @@ export function deleteTodo(project, id) {
 
 // accepts the todo obj and id of todo
 export function editTodo(todo, id, project) {
+	// i should restrict user to change projects when editing a todo
 	const todos = JSON.parse(localStorage.getItem(project)) || [];
-	console.log(todos);
 	const toUpdateTodo = todos.find((todo) => todo.id === id);
-	console.log(toUpdateTodo);
+	if (!toUpdateTodo) {
+		console.log("No todo found in this project id:", project);
+		return;
+	}
 
 	if (toUpdateTodo) {
 		toUpdateTodo.title = todo.title;
