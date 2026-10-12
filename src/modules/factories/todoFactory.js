@@ -1,4 +1,11 @@
-export function createTodo({ title, description, dueDate, priority, project }) {
+export function createTodo({
+	title,
+	description,
+	dueDate,
+	priority,
+	project,
+	status,
+}) {
 	return {
 		id: crypto.randomUUID(),
 		title: title,
@@ -6,5 +13,6 @@ export function createTodo({ title, description, dueDate, priority, project }) {
 		dueDate: dueDate,
 		priority: priority,
 		project: project,
+		status: status,
 	};
 }

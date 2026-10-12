@@ -8,6 +8,7 @@ import ArrowUpIcon from "../asset/icons/arrow-up.svg";
 import TodoIcon from "../asset/icons/todo.svg";
 import PriorityFlag from "../asset/icons/flag.svg";
 import ProjectIcon from "../asset/icons/folder.svg";
+import XamdpIcon from "../asset/icons/xamdp.jpeg";
 import {
 	addTodoSelection,
 	viewTodosSelection,
@@ -21,7 +22,6 @@ import {
 	todoDetail,
 } from "./components/TodoComponent.js";
 import { getProjects } from "./Project.js";
-import { addTodo } from "./Todo.js";
 
 export function Sidebar() {
 	const sidebar = document.createElement("div");
@@ -31,12 +31,21 @@ export function Sidebar() {
 	sidebarHeader.className = "sidebar-header";
 	const sidebarHeading = document.createElement("h2");
 	sidebarHeading.className = "sidebar-heading";
-	sidebarHeading.textContent = "My Todo List";
-	const sidebarIcon = document.createElement("div");
-	sidebarIcon.innerHTML = TodoIcon;
-	sidebarIcon.querySelector("svg").classList.add("sidebar-icon");
+	sidebarHeading.textContent = "Todo List";
+	// const sidebarIcon = document.createElement("div");
+	// sidebarIcon.innerHTML = TodoIcon; // i might change this to my own icon
+	const linkToProfile = document.createElement("a");
+	linkToProfile.href = "https://github.com/xamdp";
+	linkToProfile.className = "link-to-profile";
+	linkToProfile.rel = "noopener";
+	linkToProfile.target = "_blank";
+	const sidebarIcon = document.createElement("img");
+	sidebarIcon.src = XamdpIcon;
+	sidebarIcon.className = "sidebar-icon";
+	linkToProfile.appendChild(sidebarIcon);
+	// sidebarIcon.querySelector("svg").classList.add("sidebar-icon");
 
-	sidebarHeader.append(sidebarIcon, sidebarHeading);
+	sidebarHeader.append(linkToProfile, sidebarHeading);
 	sidebar.append(sidebarHeader);
 	const menuSidebar = MenuSidebar();
 	sidebar.append(menuSidebar);
@@ -140,7 +149,9 @@ export function displayTodos(todos) {
 		const todoContainer = document.createElement("div");
 		todoContainer.className = "todo-container";
 
-		const checkbox = todoCheckbox();
+		// i need to add some kind of checker that will check if the todo's status is wip or done
+		// if done, it should set the title, description with line-through
+		const checkbox = todoCheckbox(todo);
 		const actionsContainer = todoDetail(todo);
 		const todoBtns = todoButtons(todo);
 		todoContainer.append(checkbox, actionsContainer, todoBtns);
@@ -152,6 +163,7 @@ export function createTodoForm() {
 	const dialog = document.createElement("dialog");
 	dialog.id = "todo-modal";
 	dialog.dataset.editingTodoId = null;
+	dialog.dataset.status = "wip";
 	const todoForm = document.createElement("form");
 	todoForm.className = "todo-form";
 

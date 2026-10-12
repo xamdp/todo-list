@@ -92,6 +92,7 @@ export function submitTodoLogic() {
 		dueDate: document.querySelector(".date-text").textContent,
 		priority: document.querySelector(".priority-text").textContent,
 		project: project,
+		status: "wip",
 	};
 	const newTodo = createTodo(userInput);
 	addTodo(newTodo, project.projectId); // this works for now, because I am using the default project, here to, i need to pass the project.id
