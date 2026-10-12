@@ -120,8 +120,11 @@ export function projectDropdown() {
 	dropdown.className = "project-dropdown";
 	dropdown.id = "project-choices";
 	dropdown.setAttribute("popover", "auto");
+	console.log(projects);
 
 	projects.forEach((project) => {
+		console.log(project.projectName);
+		if (!project) return;
 		const projectSelect = document.createElement("div");
 		projectSelect.className = "project-select";
 		projectSelect.dataset.id = project.projectId;
