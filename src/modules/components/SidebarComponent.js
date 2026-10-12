@@ -129,9 +129,7 @@ export function projectDropdown() {
 		icon.innerHTML = ProjectSelectIcon;
 		icon.querySelector("svg").classList.add("project-icon");
 		const text = document.createElement("p");
-		const name =
-			project.projectName.charAt(0).toUpperCase() +
-			project.projectName.slice(1); // might create a function for this, capitalize first letter
+		const name = project.projectName;
 		text.textContent = name;
 		projectSelect.append(icon, text);
 
