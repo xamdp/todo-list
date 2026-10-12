@@ -272,6 +272,7 @@ function createProjectField() {
 	project.className = "project-selection";
 	project.setAttribute("popovertarget", "projects-choices");
 	project.dataset.projectId = "default";
+	project.dataset.projectName = "default";
 	const projectText = document.createElement("p");
 	projectText.textContent = "Project";
 	const projectIcon = document.createElement("div");
