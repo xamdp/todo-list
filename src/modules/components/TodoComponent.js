@@ -1,10 +1,18 @@
 import EditIcon from "../../asset/icons/edit.svg";
 import TrashIcon from "../../asset/icons/trash.svg";
 
-export function todoCheckbox() {
+export function todoCheckbox(todo) {
 	const checkbox = document.createElement("input");
+	checkbox.id = "checkbox";
 	checkbox.className = "todo-checkbox";
 	checkbox.type = "checkbox";
+	checkbox.dataset.statusTodo = todo.status;
+
+	if (todo.status === "done") {
+		checkbox.checked = true;
+	} else if (todo.status === "wip") {
+		checkbox.checked = false;
+	}
 	return checkbox;
 }
 
@@ -31,6 +39,7 @@ function todoTags(todo) {
 }
 
 export function todoDetail(todo) {
+	// maybe i should add the helper that will check if the todos status is done or wip
 	const actionsContainer = document.createElement("div");
 	actionsContainer.className = "todo";
 	actionsContainer.dataset.id = todo.id;
@@ -43,9 +52,16 @@ export function todoDetail(todo) {
 	description.textContent = todo.description;
 	description.className = "description";
 
+	if (todo.status === "done") {
+		title.classList.add("checked-todo");
+		description.classList.add("checked-todo");
+	} else if (todo.status === "wip") {
+		title.classList.remove("checked-todo");
+		description.classList.remove("checked-todo");
+	}
+
 	const tags = todoTags(todo);
 	actionsContainer.append(title, description, tags);
-
 	return actionsContainer;
 }
 

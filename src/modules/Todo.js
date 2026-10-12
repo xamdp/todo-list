@@ -30,6 +30,16 @@ export function deleteTodo(project, id) {
 	}
 }
 
+export function updateTodoStatus(id, project, status) {
+	const todos = JSON.parse(localStorage.getItem(project)) || [];
+	const todo = todos.find((todo) => todo.id === id);
+
+	if (!todo) return;
+
+	todo.status = status;
+	localStorage.setItem(project, JSON.stringify(todos));
+}
+
 // accepts the todo obj and id of todo
 export function editTodo(todo, id, project) {
 	// i should restrict user to change projects when editing a todo

@@ -34,5 +34,5 @@ function initializeTodo() {
 }
 
 initializeTodo();
-initListeners();
 initializeTodoList();
+initListeners();

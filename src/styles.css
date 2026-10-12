@@ -55,10 +55,11 @@ body {
 
 .sidebar-header {
 	padding-top: 1rem;
+	padding-left: 1.5rem;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
-	gap: 8px;
+	gap: 1rem;
 	font-size: 1.2rem;
 }
 
@@ -67,10 +68,16 @@ body {
 	margin: 0;
 }
 
+.link-to-profile {
+	cursor: pointer;
+}
+
 .sidebar-icon {
+	justify-self: center;
 	align-self: center;
-	width: 1em;
-	height: 1em;
+	width: 1.8em;
+	height: auto;
+	border-radius: 15px;
 }
 
 .menu-sidebar {
@@ -236,6 +243,14 @@ body {
 	accent-color: #4f46e5;
 	transform: scale(1.4);
 	padding-left: 1em;
+}
+
+.checked-todo {
+	text-decoration: line-through;
+}
+
+.unchecked-todo {
+	text-decoration: unset;
 }
 
 .todo {

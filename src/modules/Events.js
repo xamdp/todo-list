@@ -1,5 +1,12 @@
 // import { createTodo } from "./factories/todoFactory.js";
-import { addTodo, deleteTodo, editTodo, getTodo, getTodos } from "./Todo.js";
+import {
+	addTodo,
+	deleteTodo,
+	editTodo,
+	getTodo,
+	getTodos,
+	updateTodoStatus,
+} from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
@@ -252,6 +259,33 @@ function handleAddProject(e) {
 	}
 }
 
+function handleCheckTodo(event) {
+	if (event.target.classList.contains("todo-checkbox")) {
+		const checkbox = event.target;
+		const todoDetail = checkbox.nextElementSibling;
+		console.log(todoDetail);
+		const title = todoDetail.querySelector(".name");
+		const description = todoDetail.querySelector(".description");
+
+		let status = checkbox.dataset.statusTodo;
+		const id = todoDetail.dataset.id;
+		const project = todoDetail.querySelector(".project").dataset.projectId;
+
+		if (checkbox.checked) {
+			title.classList.add("checked-todo");
+			description.classList.add("checked-todo");
+			status = "done";
+			updateTodoStatus(id, project, status);
+			// i think i need a direct function that will update the status of todo in localStorage
+		} else {
+			title.classList.remove("checked-todo");
+			description.classList.remove("checked-todo");
+			status = "wip";
+			updateTodoStatus(id, project, status);
+		}
+	}
+}
+
 export function initListeners() {
 	document
 		.querySelector("#addTodoBtn")
@@ -331,4 +365,9 @@ export function initListeners() {
 	document
 		.querySelector(".todos-container")
 		.addEventListener("click", handleEditTodoBtnClick);
+
+	// need to change where should i attach the listener, should be on something does not change in the DOM most of the time
+	document
+		.querySelector(".todos-container")
+		.addEventListener("change", handleCheckTodo);
 }
