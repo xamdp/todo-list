@@ -1,32 +1,20 @@
 // import { createTodo } from "./factories/todoFactory.js";
-import {
-	addTodo,
-	deleteTodo,
-	editTodo,
-	getTodo,
-	getTodos,
-	updateTodoStatus,
-} from "./Todo.js";
+import { deleteTodo, getTodo, getTodos, updateTodoStatus } from "./Todo.js";
 import {
 	clearDisplay,
 	createDescriptionInput,
-	deleteConfirmationModal,
 	displayEditTodoForm,
 	displayProject,
 	displayTodoHeading,
 	displayTodos,
-	hideAddTodoCard,
 	renderFieldProjectSelect,
-	showAddTodoCard,
-	addTodoCard,
+	displayDafaultTodos,
 } from "./DOM.js";
 import {
 	checkDateInput,
-	getProjectId,
 	submitTodoLogic,
 	toggleProjectCancelBtn,
 	unselectProject,
-	resetForm,
 	editTodoLogic,
 } from "./helpers.js";
 import { createProject, getProjects, saveProject } from "./Project.js";
@@ -92,7 +80,6 @@ function handleSubmit(event) {
 	// hideAddTodoCard(); might not use this for a momemt, this is distracting me
 	let editingTodoId =
 		document.getElementById("todo-modal").dataset.editingTodoId;
-	// console.log(editingTodoId);
 	// if editingTodoId is not null, meaning I am editing a todo
 	if (editingTodoId !== "null") {
 		editTodoLogic();
@@ -151,9 +138,15 @@ function handleDelete() {
 function handleDisplayTodos() {
 	// const cardDiv = document.querySelector(".card-div");
 	const todos = getTodos();
-	clearDisplay();
-	displayTodoHeading();
-	displayTodos(todos);
+	if (todos.length === 0) {
+		clearDisplay();
+		displayTodoHeading();
+		displayDafaultTodos();
+	} else {
+		clearDisplay();
+		displayTodoHeading();
+		displayTodos(todos);
+	}
 }
 
 function descriptionBtnToggle() {
@@ -223,7 +216,7 @@ function displaySelectedProject(event) {
 
 function handleCancelProject() {
 	unselectProject();
-	console.log("hi");
+	// console.log("hi");
 }
 
 function handleCreateProject(event) {
@@ -263,7 +256,6 @@ function handleCheckTodo(event) {
 	if (event.target.classList.contains("todo-checkbox")) {
 		const checkbox = event.target;
 		const todoDetail = checkbox.nextElementSibling;
-		console.log(todoDetail);
 		const title = todoDetail.querySelector(".name");
 		const description = todoDetail.querySelector(".description");
 

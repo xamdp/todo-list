@@ -115,15 +115,12 @@ export function viewProjectsSelection() {
 // project dropdown in sidebar
 export function projectDropdown() {
 	const projects = getProjects();
-	// console.log(projects);
 	const dropdown = document.createElement("div");
 	dropdown.className = "project-dropdown";
 	dropdown.id = "project-choices";
 	dropdown.setAttribute("popover", "auto");
-	console.log(projects);
 
 	projects.forEach((project) => {
-		console.log(project.projectName);
 		if (!project) return;
 		const projectSelect = document.createElement("div");
 		projectSelect.className = "project-select";

@@ -2,11 +2,8 @@ export let defaultTodos = []; // this is the default project
 
 // i need to add a todo and a project.id, project.id is the key for getTodos
 export function addTodo(todo, project) {
-	console.log(project);
 	const todos = getTodos(project);
-	// console.log(todos);
 	todos.push(todo); // pushing todo to array, and refreshing the page
-	console.log(todos);
 	localStorage.setItem(project, JSON.stringify(todos));
 }
 
@@ -14,7 +11,6 @@ export function addTodo(todo, project) {
 export function getTodo(id, project) {
 	const todos = JSON.parse(localStorage.getItem(project)) || [];
 	const todo = todos.find((todo) => todo.id === id);
-	// console.log(todo);
 	return todo;
 }
 
@@ -56,7 +52,6 @@ export function editTodo(todo, id, project) {
 		toUpdateTodo.dueDate = todo.dueDate;
 		toUpdateTodo.priority = todo.priority;
 	}
-	console.log(toUpdateTodo);
 
 	localStorage.setItem(project, JSON.stringify(todos));
 }

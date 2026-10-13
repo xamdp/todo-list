@@ -108,7 +108,7 @@ export function editTodoLogic() {
 	// and with that information, I can use that to pass the project id to edit the todo.
 
 	const projectDetail = getProjectId(); // returns a projectObj
-	console.log(projectDetail.projectId);
+	// console.log(projectDetail.projectId);
 	const id = document.querySelector("#todo-modal").dataset.editingTodoId;
 	const todo = {
 		title: document.querySelector("#title-input").value,
