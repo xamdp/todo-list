@@ -9,6 +9,7 @@ import TodoIcon from "../asset/icons/todo.svg";
 import PriorityFlag from "../asset/icons/flag.svg";
 import ProjectIcon from "../asset/icons/folder.svg";
 import XamdpIcon from "../asset/icons/xamdp.jpeg";
+import DefaultTodos from "../modules/default.json";
 import {
 	addTodoSelection,
 	viewTodosSelection,
@@ -142,9 +143,29 @@ export function showAddTodoCard() {
 	cardDiv.classList.remove("hidden");
 }
 
+export function displayDafaultTodos() {
+	const defs = DefaultTodos;
+	console.log(defs);
+
+	defs.todos.forEach((def) => {
+		console.log(def);
+		const todoContainer = document.createElement("div");
+		todoContainer.className = "todo-container";
+
+		const checkbox = todoCheckbox(def);
+		const actionsContainer = todoDetail(def);
+		// const todoBtns = todoButtons(def);
+		todoContainer.append(checkbox, actionsContainer);
+		document.querySelector(".todos-list").append(todoContainer);
+	});
+}
+
 // i might also transfer this to a component
 export function displayTodos(todos) {
+	// if there are no todos, which means the parsed data from getTodos() is empty
+	// then I should display the default todo
 	if (!todos) return;
+
 	todos.forEach((todo) => {
 		const todoContainer = document.createElement("div");
 		todoContainer.className = "todo-container";
