@@ -4,6 +4,7 @@
 // and of course all the keys listed in projects.
 
 // i must use a rehydration, after storing and parsing the data from localStorage
+// sometime soon, I' think I'll use this approach, for now the prototype functions are just there
 export function createProject({
 	projectName = "default",
 	projectId = crypto.randomUUID(),
@@ -30,7 +31,6 @@ export function saveProject(project) {
 	// i don't if should i store it in projects list, the createdproject object already contains an id, so iguess yes.
 	// i need to get projects first and write it
 	const projects = getProjects();
-	console.log(projects);
 	projects.push(project);
 
 	localStorage.setItem("projects", JSON.stringify(projects)); // bru, so it should be the array, not the individual object

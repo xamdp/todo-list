@@ -145,15 +145,14 @@ export function showAddTodoCard() {
 
 export function displayDafaultTodos() {
 	const defs = DefaultTodos;
-	console.log(defs);
 
 	defs.todos.forEach((def) => {
-		console.log(def);
 		const todoContainer = document.createElement("div");
 		todoContainer.className = "todo-container";
 
 		const checkbox = todoCheckbox(def);
 		const actionsContainer = todoDetail(def);
+		// i decided to hide the buttons for todos from default.json
 		// const todoBtns = todoButtons(def);
 		todoContainer.append(checkbox, actionsContainer);
 		document.querySelector(".todos-list").append(todoContainer);
