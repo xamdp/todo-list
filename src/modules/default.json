@@ -1,11 +1,28 @@
 {
-    "title": "Create a project to organize your todos",
-    "description": "Guide on how to use this todo list",
-    "dueDate": "2026-10-11",
-    "id": "todolistguide",
-    "priority": "Priority 1",
-    "project": {
-        "projectId": "default",
-        "projectName": "default"
-    }
+    "todos": [
+        {
+            "title": "Create a project to organize your todos",
+            "description": "Guide on how to use this todo list",
+            "dueDate": "2026-10-11",
+            "id": "addtodoprojects",
+            "priority": "Priority 1",
+            "project": {
+                "projectId": "default",
+                "projectName": "default"
+            },
+            "status": "wip"
+        },
+        {
+            "title": "Creating a todo with no project, is saved in default",
+            "description": "Guide on how to use this todo list",
+            "dueDate": "2026-10-12",
+            "id": "addnormaltodos",
+            "priority": "Priority 2",
+            "project": {
+                "projectId": "default",
+                "projectName": "default"
+            },
+            "status": "done"
+        }
+    ]
 }
